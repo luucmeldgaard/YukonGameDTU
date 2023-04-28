@@ -6,215 +6,10 @@
 #include <SDL.h>
 #include "card.h"
 #include "logic.h"
+#include "printText.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
-
-// Just a simple print method. No fancy stuff except for some conversions to get propper card type visuals:
-void showCards(Card* firstCard){
-    // upper row
-    printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
-    Card* currentCard = firstCard;
-
-    int counter = 0;
-    // Prints all da cards
-    while (currentCard != NULL){
-        if (counter%7 == 0){
-            if (counter != 0){
-                printf("\n");
-            }
-
-        }
-        // Prints the value of the card. Cards get converted to another char value for visuals
-        /*
-         * ♣ (Club) - 0x05 (5 in decimal)
-         * ♠ (Spade) - 0x06 (6 in decimal)
-         * ♥ (Heart) - 0x03 (3 in decimal)
-         * ♦ (Diamond) - 0x04 (4 in decimal)
-         */
-        if (currentCard->cardType == 'C'){
-            printf("%c%c\t", currentCard->cardValue, (char) 5);
-        } else if (currentCard->cardType == 'S'){
-            printf("%c%c\t", currentCard->cardValue, (char) 6);
-        } else if (currentCard->cardType == 'H'){
-            printf("%c%c\t", currentCard->cardValue, (char) 3);
-        } else if (currentCard->cardType == 'D'){
-            printf("%c%c\t", currentCard->cardValue, (char) 4);
-        }
-
-
-        //printf("%c%c\t", currentCard->cardValue, currentCard->cardType);
-        // At the end of the every 2. line F# is added
-        if (counter == 6 ){
-            printf("\t[]\tF1");
-        } else if (counter == 20){
-            printf("\t[]\tF2");
-        } else if (counter == 34){
-            printf("\t[]\tF3");
-        } else if (counter == 48){
-            printf("\t[]\tF4");
-        }
-        // Next card and increases counter
-        currentCard = currentCard->next;
-        counter++;
-    }
-    printf("\nMessage:\nInput:");
-}
-
-/*
- * Prints the current board. Not much to be explained, just a bunch of if statements printing stuff.
- */
-void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c6, Card* c7, Card* f1, Card* f2, Card* f3, Card* f4, char* message){
-    printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
-    int lineCounter = 0;
-
-
-    // Prints the value of the card. Cards get converted to another char value for visuals
-    /*
-     * ♣ (Club) - 0x05 (5 in decimal)
-     * ♠ (Spade) - 0x06 (6 in decimal)
-     * ♥ (Heart) - 0x03 (3 in decimal)
-     * ♦ (Diamond) - 0x04 (4 in decimal)
-     */
-
-    while (c1 != NULL || c2 != NULL || c3 != NULL || c4 != NULL || c5 != NULL || c6 != NULL || c7 != NULL){
-        if (c1 != NULL){
-            if (c1->flipped == true){
-                printf("[]\t");
-            } else {
-                //printf("%c%c\t", c1->cardValue, c1->cardType == 'C' ? (char) 5 : c1->cardType == 'S' ? (char) 6 : c1->cardType == 'H' ? (char) 3 : (char) 4);
-                printf("%c%c\t", c1->cardValue, c1->cardType);
-            }
-            c1 = c1->next;
-        } else {
-            printf("\t");
-        }
-        if (c2 != NULL){
-            if (c2->flipped == true){
-                printf("[]\t");
-            } else {
-                //printf("%c%c\t", c2->cardValue, c2->cardType == 'C' ? (char) 5 : c2->cardType == 'S' ? (char) 6 : c2->cardType == 'H' ? (char) 3 : (char) 4);
-                printf("%c%c\t", c2->cardValue, c2->cardType);
-            }
-            c2 = c2->next;
-        }else {
-            printf("\t");
-        }
-        if (c3 != NULL){
-            if (c3->flipped == true){
-                printf("[]\t");
-            } else {
-                printf("%c%c\t", c3->cardValue, c3->cardType);
-                //printf("%c%c\t", c3->cardValue, c3->cardType == 'C' ? (char) 5 : c3->cardType == 'S' ? (char) 6 : c3->cardType == 'H' ? (char) 3 : (char) 4);
-            }
-            c3 = c3->next;
-        }else {
-            printf("\t");
-        }
-        if (c4 != NULL){
-            if (c4->flipped == true){
-                printf("[]\t");
-            } else {
-                //printf("%c%c\t", c4->cardValue, c4->cardType == 'C' ? (char) 5 : c4->cardType == 'S' ? (char) 6 : c4->cardType == 'H' ? (char) 3 : (char) 4);
-                printf("%c%c\t", c4->cardValue, c4->cardType);
-            }
-            c4 = c4->next;
-        }else {
-            printf("\t");
-        }
-        if (c5 != NULL){
-            if (c5->flipped == true){
-                printf("[]\t");
-            } else {
-                //printf("%c%c\t", c5->cardValue, c5->cardType == 'C' ? (char) 5 : c5->cardType == 'S' ? (char) 6 : c5->cardType == 'H' ? (char) 3 : (char) 4);
-                printf("%c%c\t", c5->cardValue, c5->cardType);
-            }
-            c5 = c5->next;
-        }else {
-            printf("\t");
-        }
-        if (c6 != NULL){
-            if (c6->flipped == true){
-                printf("[]\t");
-            } else {
-                //printf("%c%c\t", c6->cardValue, c6->cardType == 'C' ? (char) 5 : c6->cardType == 'S' ? (char) 6 : c6->cardType == 'H' ? (char) 3 : (char) 4);
-                printf("%c%c\t", c6->cardValue, c6->cardType);
-            }
-            c6 = c6->next;
-        }else {
-            printf("\t");
-        }
-        if (c7 != NULL){
-            if (c7->flipped == true){
-                printf("[]\t");
-            } else {
-                //printf("%c%c\t", c7->cardValue, c7->cardType == 'C' ? (char) 5 : c7->cardType == 'S' ? (char) 6 : c7->cardType == 'H' ? (char) 3 : (char) 4);
-                printf("%c%c\t", c7->cardValue, c7->cardType);
-            }
-            c7 = c7->next;
-        }else {
-            printf("\t");
-        }
-
-        if (lineCounter == 0){
-            if (f1 == NULL){
-                printf("[]\tF1");
-            } else {
-                //printf("%c%c\t", f1->cardValue, f1->cardType == 'C' ? (char) 5 : f1->cardType == 'S' ? (char) 6 : f1->cardType == 'H' ? (char) 3 : (char) 4);
-                printf("%c%c\tF1", f1->cardValue, f1->cardType);
-            }
-        } else if (lineCounter == 2){
-            if(f2 == NULL){
-                printf("[]\tF2");
-            } else {
-                //printf("%c%c\t", f2->cardValue, f2->cardType == 'C' ? (char) 5 : f2->cardType == 'S' ? (char) 6 : f2->cardType == 'H' ? (char) 3 : (char) 4);
-                printf("%c%c\tF2", f2->cardValue, f2->cardType);
-            }
-        } else if (lineCounter == 4){
-            if (f3 == NULL){
-                printf("[]\tF3");
-            } else {
-                //printf("%c%c\t", f3->cardValue, f3->cardType == 'C' ? (char) 5 : f3->cardType == 'S' ? (char) 6 : f3->cardType == 'H' ? (char) 3 : (char) 4);
-                printf("%c%c\tF3", f3->cardValue, f3->cardType);
-            }
-        } else if (lineCounter == 6){
-            if (f4 == NULL){
-                printf("[]\tF4");
-            } else {
-                //printf("%c%c\t", f4->cardValue, f4->cardType == 'C' ? (char) 5 : f4->cardType == 'S' ? (char) 6 : f4->cardType == 'H' ? (char) 3 : (char) 4);
-                printf("%c%c\tF4", f4->cardValue, f4->cardType);
-            }
-
-
-        }
-
-        printf("\n");
-        lineCounter += 1;
-    }
-    if (lineCounter < 2){
-        if (lineCounter == 1){
-            printf("\n");
-        }
-        printf("\t\t\t\t\t\t\tF2\n");
-        printf("\t\t\t\t\t\t\tF3\n");
-        printf("\t\t\t\t\t\t\tF4\n");
-    } else if (lineCounter < 4){
-        if (lineCounter == 2){
-            printf("\n");
-        }
-        printf("\t\t\t\t\t\t\tF3\n");
-        printf("\t\t\t\t\t\t\tF4\n");
-    } else if (lineCounter < 6){
-        if (lineCounter == 4){
-            printf("\n");
-        }
-        printf("\t\t\t\t\t\t\tF4\n");
-    }
-
-    printf("\n");
-    printf("Status message: %s\n", message);
-    printf("Input: ");
-}
 
 
 /**
@@ -290,18 +85,28 @@ void play(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Ca
 // PLACE BACK HERE IF NO WORKING
 
 void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4){
-    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, NULL, NULL, NULL, NULL, "Welcome!");
+    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "Welcome!");
     char usrInput[256];
     bool moveByColumn;
+    bool endPile;
     Card **chosenDeck1;
     Card **chosenDeck2;
     char messages[256];
     while (true) {
         while (true) {
-
-            fflush(stdin); // Clears input buffer
+            endPile = false;
             memset(usrInput, '\0', 256); // Clears the input array
+            fflush(stdin); // Clears input buffer
             scanf("%s", &usrInput[0]);
+
+            if (*f1 != NULL){
+                printf("\n%c%c", (*f1)->cardType, (*f1)->cardValue);
+            }
+
+            if (*c1 == NULL) {
+                printf("\nc1 is null");
+            }
+
 
             if (usrInput[0] == 'Q'){
                 return;
@@ -317,8 +122,8 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
                     printf("no good input2: ");
                     memset(usrInput, '\0', 256);
 
-                } else if (!(usrInput[3] >= '1' && usrInput[3] <= '9') || usrInput[3] == 'A' || usrInput[3] == 'J' ||
-                           usrInput[3] == 'Q' || usrInput[3] == 'K') {
+                } else if (!(usrInput[3] >= '1' && usrInput[3] <= '9') && usrInput[3] != 'A' && usrInput[3] != 'J' &&
+                           usrInput[3] != 'Q' && usrInput[3] != 'K') {
                     printf("no good input3: ");
                     memset(usrInput, '\0', 256);
 
@@ -383,10 +188,8 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
                 }
             }
 
-            if (usrInput[0] == 'C') {
-                if (usrInput[8] == '1') {
-                    chosenDeck2 = c1;
-                } else if (usrInput[5] == '1') {
+            if (usrInput[4] == 'C') {
+                if (usrInput[5] == '1') {
                     chosenDeck2 = c1;
                 } else if (usrInput[5] == '2') {
                     chosenDeck2 = c2;
@@ -405,17 +208,18 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
 
             if (usrInput[0] == 'F') {
                 if (usrInput[1] == '1') {
-                    chosenDeck2 = f1;
+                    chosenDeck1 = f1;
                 } else if (usrInput[1] == '2') {
-                    chosenDeck2 = f2;
+                    chosenDeck1 = f2;
                 } else if (usrInput[1] == '3') {
-                    chosenDeck2 = f3;
+                    chosenDeck1 = f3;
                 } else if (usrInput[1] == '4') {
-                    chosenDeck2 = f4;
+                    chosenDeck1 = f4;
                 }
             }
 
             if (usrInput[4] == 'F') {
+                endPile = true;
                 if (usrInput[5] == '1') {
                     chosenDeck2 = f1;
                 } else if (usrInput[5] == '2') {
@@ -426,12 +230,19 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
                     chosenDeck2 = f4;
                 }
             }
-            moveCards(chosenDeck1, chosenDeck2, 0, false);
+            if (moveCards(chosenDeck1, chosenDeck2, 0, endPile) == true){
+                strcpy(messages, "Move complete");
+            } else {
+                strcpy(messages, "Move failed");
+            }
+
+            printf("´\nGucci gucci gucci gucci v0.5");
         }
             //////// End of checks for moving columns /////////////
 
             //////// Start of checks for moving card at x row ////////
         else {
+            printf("´\nGucci gucci gucci gucci v0.6");
             if (usrInput[0] == 'C') {
                 if (usrInput[1] == '1') {
                     chosenDeck1 = c1;
@@ -481,6 +292,7 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
             }
 
             if (usrInput[7] == 'F') {
+                endPile = true;
                 if (usrInput[8] == '1') {
                     chosenDeck2 = f1;
                 } else if (usrInput[8] == '2') {
@@ -492,6 +304,8 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
                 }
             }
 
+            printf("´\nGucci gucci gucci gucci v1");
+
             Card* temp = *chosenDeck1;
             int height = 0;
             bool cardInColumn = false;
@@ -501,27 +315,23 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
                     strcpy(messages, "Movement succesful!");
                     *chosenDeck1 = temp;
                     cardInColumn = true;
-                    if(moveCards(chosenDeck1, chosenDeck2, height, false) == true) {
+                    if(moveCards(chosenDeck1, chosenDeck2, height, endPile) == true) {
                         break;
                     } else {
                         strcpy(messages, "No cards in pile or invalid move");
                     }
                 }
-                (*chosenDeck1) = (*chosenDeck1)->next;
                 if (*chosenDeck1 == NULL){
                     strcpy(messages, "Card does not exists");
                     printf("Card does not exists ");
                 }
+                (*chosenDeck1) = (*chosenDeck1)->next;
                 height++;
             }
         }
 
-        printf("\n\n%c%c\n\n", (*chosenDeck1)->cardValue, (*chosenDeck2)->cardValue);
-        printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, NULL, NULL, NULL, NULL, messages);
-
-
-
-        memset(usrInput, '\0', 256); // Resets the array
+        //printf("\n\n%c%c\n\n", (*chosenDeck1)->cardValue, (*chosenDeck2)->cardValue);
+        printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, messages);
         printf("Input is great§!");
     }
 
@@ -577,7 +387,7 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
             signed int chosenCard = 0;
 
             while (true) {
-                scanf("%3d", &chosenCard);
+                scanf("%3d", &chosenCard); // idgaf about this one... It can't overflow. it's all good.
                 getchar();
                 if (chosenCard >= 0 && chosenCard <= 52){
                     break;
@@ -634,7 +444,7 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
  * Global values and game initiation.
  */
 int main(int argc, char* args[]){
-
+/*
     //The window we'll be rendering to
     SDL_Window* window = NULL;
 
@@ -666,7 +476,7 @@ int main(int argc, char* args[]){
         }
 
     }
-
+*/
 
     /*
  * Essentially we are creating an object of type Card and do stuff with it
