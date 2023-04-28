@@ -15,4 +15,10 @@ typedef struct Card{
     bool flipped;
 } Card;
 
+void createDeck(Card** firstCard, Card** lastCard);
+bool controlDeck(Card** firstCardTemp, Card** lastCardTemp, Card* currentCardTemp, const char *temp);
+void removeDeck(Card** firstCard);
+char *loadDeck(Card** firstCard, Card** lastCard, const char *fileName, char *textbuf);
+char *saveDeck(Card* firstCard, const char *savedDeckName);
+
 #endif //YUKONGAMEDTU_CARD_H
