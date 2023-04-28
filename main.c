@@ -868,6 +868,11 @@ bool moveCards(Card** fromPile, Card** toPile, int from, bool endPile){
 
     printf("mamma im doing goodv5\n");
     if ((*toPile) == NULL){
+
+        if ((*fromPile)->previous ==NULL){
+
+        }
+
         if (checkLegalMove2(fromPile, toPile, from) == true){
             printf("mamma im doing goodv6\n");
             *toPile = *fromPile;
@@ -1191,6 +1196,7 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
             while (usrInput != '\n' && i < sizeof(filename) - 1) {
                 usrInput = (char)getchar();
                 filename[i++] = usrInput;
+
             }
             printf("\n");
 
@@ -1290,6 +1296,7 @@ int closeSDLWindow(SDL_Window* window) {
  */
 int main(int argc, char* args[]){
 
+    /*
     //The window we'll be rendering to
     SDL_Window* window = NULL;
 
@@ -1321,6 +1328,7 @@ int main(int argc, char* args[]){
         }
 
     }
+     */
 
 
     /*
