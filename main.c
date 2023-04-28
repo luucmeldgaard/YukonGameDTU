@@ -4,21 +4,11 @@
 #include <time.h>
 #include <stdbool.h>
 #include <SDL.h>
+#include "card.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-// Each card represent a Node in the linked list
-typedef struct Card{
-    // Clubs, diamonds, Hearts, Spades
-    char cardType;
-    // Ace, numbers, jacks, queens, kings
-    char cardValue;
-    // Loads the next and previous memory location for sorrounding cards
-    struct Card *next;
-    struct Card *previous;
-    bool flipped;
-} Card;
 
 // Creates 52 nodes in a double linked list containing the values given in the assignment if no file is given...
 // Was created to avoid writing 52 cards by hand... 10/10 time sink!
