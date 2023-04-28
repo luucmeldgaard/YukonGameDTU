@@ -17,12 +17,18 @@ bool checkLegalMove(Card** fromPile, Card** toPile, int from) {
         return false;
     }
 
-    Card* firstCard = fromPile[0];
-    Card* secondCard = toPile[0];
+    Card* firstCard = *fromPile;
+    Card* secondCard = *toPile;
 
 
     printf("\n\n%c%c\n", firstCard->cardValue, firstCard->cardType);
     printf("%c%c\n\n", secondCard->cardValue, secondCard->cardType);
+    if (firstCard->cardValue >= '0' && secondCard->cardValue <= '9'){
+        printf("\nSo, SO SOSOOOO true\n");
+        if (firstCard->cardValue + '1' == secondCard->cardValue){
+            printf("\nSo, SO SOSOOOO true\n");
+        }
+    }
 
     if (firstCard->cardType == 'C' || firstCard->cardType == 'S') {
         if (secondCard->cardType == 'D' || secondCard->cardType == 'H' || secondCard == NULL) {
@@ -37,6 +43,10 @@ bool checkLegalMove(Card** fromPile, Card** toPile, int from) {
         }
         return false;
     }
+
+
+
+
 }
 
 bool checkLegalMove2(Card** fromPile, Card** toPile, int from){
@@ -65,6 +75,8 @@ bool checkLegalMove2(Card** fromPile, Card** toPile, int from){
 
 bool moveCards(Card** fromPile, Card** toPile, int from, bool endPile){
 
+    printf("\n%d\n", from);
+
 
     if (*fromPile == NULL){
         printf("CRASHAND DIE");
@@ -78,15 +90,16 @@ bool moveCards(Card** fromPile, Card** toPile, int from, bool endPile){
     printf("Crash1");
 
 
-
-    while ((*fromPile)->next != NULL) {
-        printf("Crash1.1");
-        (*fromPile) = (*fromPile)->next;
+    if (from == -1) {
+        while ((*fromPile)->next != NULL) {
+            printf("Crash1.1");
+            (*fromPile) = (*fromPile)->next;
+        }
     }
     printf("mamma im doing good\n");
     for (int i = 0; i < from; i ++) {
         printf("Crash1.2");
-        (*fromPile) = (*fromPile)->previous;
+        (*fromPile) = (*fromPile)->next;
     }
     printf("mamma im doing goodv2\n");
     if ((*toPile) != NULL) {
@@ -100,11 +113,13 @@ bool moveCards(Card** fromPile, Card** toPile, int from, bool endPile){
     printf("mamma im doing goodv3\n");
 
 
+    printf("%d", (*fromPile)->flipped);
+    printf("%c%c\n", (*fromPile)->cardType, (*fromPile)->cardValue);
 
-
-    printf("mamma im doing goodv4\n");
+    printf("mamma im doing goodv4 <<<<<<<<\n");
 
     if ((*fromPile)->flipped == true){
+        printf("mamma im doing goodv4.1 \n");
         *fromPile = tempFrom;
         *toPile = tempTo;
         return false;
@@ -129,6 +144,8 @@ bool moveCards(Card** fromPile, Card** toPile, int from, bool endPile){
         }
     }
 
+
+    // Makes moves from C1-C7 to F1-F4 available - (First card only)
     printf("mamma im doing goodv5\n");
     if ((*fromPile)->previous == NULL && (*toPile == NULL)){
         printf("mamma im doing goodv6\n");
@@ -139,10 +156,27 @@ bool moveCards(Card** fromPile, Card** toPile, int from, bool endPile){
         printf("\n%c%c", (*toPile)->cardType, (*toPile)->cardValue);
         return true;
     }
-
     Card* oldPile = *fromPile;
     Card* newPile = *toPile;
 
+    // Make moves for kings to empty space available
+    if (newPile == NULL){
+        newPile = oldPile;
+        oldPile = oldPile->previous;
+        oldPile->next = NULL;
+        newPile->previous = NULL;
+        while (oldPile->previous != NULL){
+            oldPile = oldPile->previous;
+        }
+        (*fromPile) = oldPile;
+        (*toPile) = newPile;
+        return true;
+    }
+
+    printf("mamma im doing goodv11\n");
+
+
+    printf("mamma im doing goodv12\n");
     printf("\n\n%c%c <<<\n\n", (*toPile)->cardValue, (*toPile)->cardType);
     printf("\n\n%c%c <<<\n\n", (*fromPile)->cardValue, (*fromPile)->cardType);
 

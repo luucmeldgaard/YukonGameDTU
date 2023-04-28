@@ -122,7 +122,7 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
                     printf("no good input2: ");
                     memset(usrInput, '\0', 256);
 
-                } else if (!(usrInput[3] >= '1' && usrInput[3] <= '9') && usrInput[3] != 'A' && usrInput[3] != 'J' &&
+                } else if (!(usrInput[3] >= '1' && usrInput[3] <= '9') && usrInput[3] != 'T' && usrInput[3] != 'A' && usrInput[3] != 'J' &&
                            usrInput[3] != 'Q' && usrInput[3] != 'K') {
                     printf("no good input3: ");
                     memset(usrInput, '\0', 256);
@@ -230,7 +230,7 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
                     chosenDeck2 = f4;
                 }
             }
-            if (moveCards(chosenDeck1, chosenDeck2, 0, endPile) == true){
+            if (moveCards(chosenDeck1, chosenDeck2, -1, endPile) == true){
                 strcpy(messages, "Move complete");
             } else {
                 strcpy(messages, "Move failed");
