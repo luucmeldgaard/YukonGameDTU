@@ -360,8 +360,8 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
     // 4 additional lists is made for finished cards
     Card* f1 = NULL; Card* f2 = NULL; Card* f3 = NULL; Card* f4 = NULL;
     ///// Program breaks if more than 128 chars is inputted. It will override memory.
-    char input[128]; //Allocates the space fo the string
-    char filename[128];
+    char input[256]; //Allocates the space fo the string
+    char filename[256];
     char usrInput;
     char saveChar;
 
@@ -504,7 +504,7 @@ int main(int argc, char* args[]){
 
     printf("\n\n");
 
-    char errorMessages[100];
+    char errorMessages[256];
 
     // Time test.. should be deleted
     /*
