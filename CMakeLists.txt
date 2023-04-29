@@ -10,6 +10,6 @@ include_directories(${SDL2_INCLUDE_DIR})
 link_directories(${SDL2_LIB_DIR})
 
 # Create an executable target for your main program and link it to your library
-add_executable(YukonGameDTU main.c card.h logic.c logic.h card.c sdlwindow.c sdlwindow.h printText.h printText.c inputChecks.h inputChecks.cpp)
+add_executable(YukonGameDTU main.c card.h logic.c logic.h card.c sdlwindow.c sdlwindow.h printText.h printText.c inputChecks.h inputChecks.c undoRedo.h undoRedo.c)
 
 target_link_libraries(${PROJECT_NAME} SDL2main SDL2)

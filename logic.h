@@ -9,11 +9,11 @@
 #include "stdbool.h"
 #include "card.h"
 
-bool checkMoveC(Card** fromPile, Card** toPile, int from);
-bool checkMoveF(Card** fromPile, Card** toPile, int from);
+bool checkMoveC(Card **fromPile, Card **toPile);
+
+bool checkMoveF(Card **fromPile, Card **toPile);
 
 bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *messages);
-void checkForValidInputMove(char* usrInput);
 void splitShuffle(Card** firstCard, Card** lastCard, int split);
 void shuffle(Card** firstCard, Card** lastCard);
 void placeCard(Card** newPile, Card** oldPile);
