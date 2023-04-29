@@ -347,7 +347,6 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
         }
 
         //printf("\n\n%c%c\n\n", (*chosenDeck1)->cardValue, (*chosenDeck2)->cardValue);
-        printf("\nCant print the board\n");
         printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, messages);
         printf("Input is great§!");
     }

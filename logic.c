@@ -13,16 +13,20 @@
 
 
 bool checkCardValue(Card** fromPile, Card** toPile){
+    printf("\nSo, SO SOSOOOO truev3\n");
     Card* firstCard = *fromPile;
     Card* secondCard = *toPile;
-    if (firstCard->cardValue >= '0' && secondCard->cardValue <= '9'){
-        printf("\nSo, SO SOSOOOO true\n");
-        printf("\n%d\n", (char) (firstCard->cardValue + 1));
-        if ((char) (firstCard->cardValue + 1) == secondCard->cardValue){
-            printf("\nSo, SO SOSOOOO true\n");
-            return true;
+    if (firstCard->cardValue >= '1' && firstCard->cardValue <= '9') {
+        if (secondCard->cardValue >= '1' && secondCard->cardValue <= '9') {
+            printf("\nSo, SO SOSOOOO truev4\n");
+            printf("\n%d\n", (char) (firstCard->cardValue + 1));
+            if ((char) (firstCard->cardValue + 1) == secondCard->cardValue) {
+                printf("\nSo, SO SOSOOOO truev6\n");
+                return true;
+            }
         }
     }
+    printf("\nSo, SO SOSOOOO truev7\n");
     if (firstCard->cardValue == 'A' && secondCard->cardValue == '1'){
         return true;
     } else if (firstCard->cardValue == 'T' && secondCard->cardValue == 'J'){
@@ -31,9 +35,9 @@ bool checkCardValue(Card** fromPile, Card** toPile){
         return true;
     } else if (firstCard->cardValue == 'Q' && secondCard->cardValue == 'K'){
         return true;
-    } else {
-        return false;
     }
+    printf("\nSo, SO SOSOOOO truev8\n");
+    return false;
 
 }
 
@@ -54,9 +58,18 @@ bool checkMoveC(Card** fromPile, Card** toPile, int from) {
     Card* firstCard = *fromPile;
     Card* secondCard = *toPile;
 
+    printf("\nSo, SO SOSOOOO truev1\n");
 
     printf("\n\n%c%c\n", firstCard->cardValue, firstCard->cardType);
     printf("%c%c\n\n", secondCard->cardValue, secondCard->cardType);
+
+    printf("\nSo, SO SOSOOOO truev2\n");
+
+    if (checkCardValue(&firstCard, &secondCard) == true){
+        return true;
+    } else {
+        return false;
+    }
 
 
     if (firstCard->cardType == 'C' || firstCard->cardType == 'S') {
@@ -64,6 +77,8 @@ bool checkMoveC(Card** fromPile, Card** toPile, int from) {
             return true;
         }
     }
+    printf("\nSo, SO SOSOOOO truev3 \n");
+
 
     if (firstCard->cardType == 'D' || firstCard->cardType == 'H') {
         if (secondCard->cardType == 'C' || secondCard->cardType == 'S' || secondCard == NULL) {
@@ -73,9 +88,7 @@ bool checkMoveC(Card** fromPile, Card** toPile, int from) {
 
     printf("\nillegalv3");
 
-    if (checkCardValue(&firstCard, &secondCard) == true){
-        return true;
-    }
+
 
     return false;
 
