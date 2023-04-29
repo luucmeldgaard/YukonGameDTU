@@ -99,43 +99,49 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
             fflush(stdin); // Clears input buffer
             scanf("%s", &usrInput[0]);
 
-            if (*f1 != NULL){
-                printf("\n%c%c", (*f1)->cardType, (*f1)->cardValue);
-            }
-
-            if (*c1 == NULL) {
-                printf("\nc1 is null");
-            }
 
 
             if (usrInput[0] == 'Q'){
                 return;
             }
 
+            if (!(usrInput[2] == ':' && usrInput[5] == '-' && usrInput[6] == '>' || usrInput[2] == '-' && usrInput[3] == '>')){
+                printf("leave a message some time");
+                continue;
+            }
+
+
             if (usrInput[2] == ':' && usrInput[5] == '-' && usrInput[6] == '>') {
+
+                if (usrInput[1] == usrInput[8] && usrInput[0] == usrInput[7]){
+                    printf("leave a message some time");
+                    continue;
+                }
+
+
                 printf("\nAt first line\n");
                 if (!(usrInput[0] == 'C' || usrInput[0] == 'F')) {
                     printf("no good input1: %c", usrInput[0]);
-                    memset(usrInput, '\0', 256); // Resets the array
+                    continue;
 
                 } else if (!(usrInput[1] >= '1' && usrInput[1] <= '7')) {
                     printf("no good input2: ");
-                    memset(usrInput, '\0', 256);
+                    continue;
 
                 } else if (!(usrInput[3] >= '1' && usrInput[3] <= '9') && usrInput[3] != 'T' && usrInput[3] != 'A' && usrInput[3] != 'J' &&
                            usrInput[3] != 'Q' && usrInput[3] != 'K') {
                     printf("no good input3: ");
-                    memset(usrInput, '\0', 256);
+                    continue;
 
                 } else if (!(usrInput[4] == 'C' || usrInput[4] == 'S' || usrInput[4] == 'H' || usrInput[4] == 'D')){
                     printf("no good input4: ");
-                    memset(usrInput, '\0', 256);
+                    continue;
                 } else if (!(usrInput[0] == 'C' || usrInput[0] == 'F')){
                     printf("no good input5: ");
-                    memset(usrInput, '\0', 256);
+                    continue;
                 } else if(!(usrInput[1] >= '1' && usrInput[1] <= '7')){
                     printf("no good input6: ");
-                    memset(usrInput, '\0', 256);
+                    continue;
                 }
                 else {
                     printf("BREAK1");
@@ -144,21 +150,25 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
                 }
             }
             else if (usrInput[2] == '-' && usrInput[3] == '>'){
+                if (usrInput[1] == usrInput[5] && usrInput[0] == usrInput[4]){
+                    printf("im a good boy");
+                    continue;
+                }
                 printf("\nAt second line\n");
                 if (!(usrInput[0] == 'C' || usrInput[0] == 'F')) {
                     printf("no good input7: %c", usrInput[0]);
-                    memset(usrInput, '\0', 256); // Resets the array
+                    continue;
 
                 } else if (!(usrInput[1] >= '1' && usrInput[1] <= '7')) {
                     printf("no good input8: ");
-                    memset(usrInput, '\0', 256);
+                    continue;
 
                 } else if (!(usrInput[4] == 'C' || usrInput[4] == 'F')){
                     printf("no good input9: ");
-                    memset(usrInput, '\0', 256);
+                    continue;
                 } else if(!(usrInput[5] >= '1' && usrInput[5] <= '7')){
                     printf("no good input10: ");
-                    memset(usrInput, '\0', 256);
+                    continue;
                 }
                 else {
                     moveByColumn = true;
@@ -230,10 +240,9 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
                     chosenDeck2 = f4;
                 }
             }
-            if (moveCards(chosenDeck1, chosenDeck2, -1, endPile) == true){
-                strcpy(messages, "Move complete");
+            if (moveCards(chosenDeck1, chosenDeck2, -1, endPile, messages) == true){
             } else {
-                strcpy(messages, "Move failed");
+                //strcpy(messages, "Move failed");
             }
 
             printf("´\nGucci gucci gucci gucci v0.5");
@@ -304,33 +313,41 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
                 }
             }
 
-            printf("´\nGucci gucci gucci gucci v1");
+            printf("´\nGucci gucci gucci gucci v1\n");
 
             Card* temp = *chosenDeck1;
             int height = 0;
             bool cardInColumn = false;
             while (*chosenDeck1 != NULL){
-
+                printf("\n%s\n", usrInput);
+                printf("´\nGucci gucci gucci gucci v1\n");
                 if ((*chosenDeck1)->cardValue == usrInput[3] && (*chosenDeck1)->cardType == usrInput[4]){
-                    strcpy(messages, "Movement succesful!");
                     *chosenDeck1 = temp;
                     cardInColumn = true;
-                    if(moveCards(chosenDeck1, chosenDeck2, height, endPile) == true) {
+                    if(moveCards(chosenDeck1, chosenDeck2, height, endPile, messages) == true) {
                         break;
                     } else {
-                        strcpy(messages, "No cards in pile or invalid move");
+                        //strcpy(messages, "No cards in pile or invalid move");
                     }
                 }
                 if (*chosenDeck1 == NULL){
-                    strcpy(messages, "Card does not exists");
-                    printf("Card does not exists ");
+                    strcpy(messages, "Card does not exists in column");
                 }
                 (*chosenDeck1) = (*chosenDeck1)->next;
                 height++;
             }
         }
 
+        if (*f1 != NULL && *f2 != NULL && *f3 != NULL && *f4 != NULL) {
+            if ((*f1)->cardValue == 'K' && (*f2)->cardValue == 'K' && (*f3)->cardValue == 'K' &&
+                (*f4)->cardValue == 'K') {
+                strcpy(messages, "You have won the game!");
+                return;
+            }
+        }
+
         //printf("\n\n%c%c\n\n", (*chosenDeck1)->cardValue, (*chosenDeck2)->cardValue);
+        printf("\nCant print the board\n");
         printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, messages);
         printf("Input is great§!");
     }

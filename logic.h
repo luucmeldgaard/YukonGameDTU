@@ -9,9 +9,10 @@
 #include "stdbool.h"
 #include "card.h"
 
-bool checkLegalMove(Card** fromPile, Card** toPile, int from);
-bool checkLegalMove2(Card** fromPile, Card** toPile, int from);
-bool moveCards(Card** fromPile, Card** toPile, int from, bool endPile);
+bool checkMoveC(Card** fromPile, Card** toPile, int from);
+bool checkMoveF(Card** fromPile, Card** toPile, int from);
+
+bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *messages);
 void checkForValidInputMove(char* usrInput);
 void splitShuffle(Card** firstCard, Card** lastCard, int split);
 void shuffle(Card** firstCard, Card** lastCard);

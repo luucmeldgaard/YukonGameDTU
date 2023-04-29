@@ -2,16 +2,91 @@
 // Created by LuucM on 28-04-2023.
 //
 
-#include "logic.h"
-#include "card.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
+#include "card.h"
+#include "logic.h"
 
-bool checkLegalMove(Card** fromPile, Card** toPile, int from) {
+
+
+bool checkCardValue(Card** fromPile, Card** toPile){
+    Card* firstCard = *fromPile;
+    Card* secondCard = *toPile;
+    if (firstCard->cardValue >= '0' && secondCard->cardValue <= '9'){
+        printf("\nSo, SO SOSOOOO true\n");
+        printf("\n%d\n", (char) (firstCard->cardValue + 1));
+        if ((char) (firstCard->cardValue + 1) == secondCard->cardValue){
+            printf("\nSo, SO SOSOOOO true\n");
+            return true;
+        }
+    }
+    if (firstCard->cardValue == 'A' && secondCard->cardValue == '1'){
+        return true;
+    } else if (firstCard->cardValue == 'T' && secondCard->cardValue == 'J'){
+        return true;
+    } else if (firstCard->cardValue == 'J' && secondCard->cardValue == 'Q'){
+        return true;
+    } else if (firstCard->cardValue == 'Q' && secondCard->cardValue == 'K'){
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+
+bool checkMoveC(Card** fromPile, Card** toPile, int from) {
+
+
 
     if (*toPile == NULL){
         if ((*fromPile)->cardValue == 'K'){
+            return true;
+        }
+        return false;
+    }
+    printf("\n%c%c <<", (*fromPile)->cardValue, (*fromPile)->cardType);
+    printf("\n%c%c <<\n", (*toPile)->cardValue, (*toPile)->cardType);
+
+    Card* firstCard = *fromPile;
+    Card* secondCard = *toPile;
+
+
+    printf("\n\n%c%c\n", firstCard->cardValue, firstCard->cardType);
+    printf("%c%c\n\n", secondCard->cardValue, secondCard->cardType);
+
+
+    if (firstCard->cardType == 'C' || firstCard->cardType == 'S') {
+        if (secondCard->cardType == 'D' || secondCard->cardType == 'H' || secondCard == NULL) {
+            return true;
+        }
+    }
+
+    if (firstCard->cardType == 'D' || firstCard->cardType == 'H') {
+        if (secondCard->cardType == 'C' || secondCard->cardType == 'S' || secondCard == NULL) {
+            return true;
+        }
+    }
+
+    printf("\nillegalv3");
+
+    if (checkCardValue(&firstCard, &secondCard) == true){
+        return true;
+    }
+
+    return false;
+
+
+}
+
+
+bool checkMoveF(Card** fromPile, Card** toPile, int from){
+
+    if (*toPile == NULL){
+        if ((*fromPile)->cardValue == 'A'){
             return true;
         }
         return false;
@@ -23,46 +98,11 @@ bool checkLegalMove(Card** fromPile, Card** toPile, int from) {
 
     printf("\n\n%c%c\n", firstCard->cardValue, firstCard->cardType);
     printf("%c%c\n\n", secondCard->cardValue, secondCard->cardType);
-    if (firstCard->cardValue >= '0' && secondCard->cardValue <= '9'){
-        printf("\nSo, SO SOSOOOO true\n");
-        if (firstCard->cardValue + '1' == secondCard->cardValue){
-            printf("\nSo, SO SOSOOOO true\n");
-        }
-    }
-
-    if (firstCard->cardType == 'C' || firstCard->cardType == 'S') {
-        if (secondCard->cardType == 'D' || secondCard->cardType == 'H' || secondCard == NULL) {
-            return true;
-        }
-        return false;
-    }
-
-    if (firstCard->cardType == 'D' || firstCard->cardType == 'H') {
-        if (secondCard->cardType == 'C' || secondCard->cardType == 'S' || secondCard == NULL) {
-            return true;
-        }
-        return false;
-    }
-
-
-
-
-}
-
-bool checkLegalMove2(Card** fromPile, Card** toPile, int from){
-
-    if ((*toPile) == NULL){
-        return true;
-    }
-
-    Card* firstCard = fromPile[0];
-    Card* secondCard = toPile[0];
-
-
-    printf("\n\n%c%c\n", firstCard->cardValue, firstCard->cardType);
-    printf("%c%c\n\n", secondCard->cardValue, secondCard->cardType);
 
     if (firstCard->cardType == secondCard->cardType) {
+        return true;
+    }
+    if (checkCardValue(&firstCard, &secondCard) == true){
         return true;
     }
 
@@ -73,71 +113,54 @@ bool checkLegalMove2(Card** fromPile, Card** toPile, int from){
 
 // Assignment
 
-bool moveCards(Card** fromPile, Card** toPile, int from, bool endPile){
-
-    printf("\n%d\n", from);
+bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *messages) {
 
 
     if (*fromPile == NULL){
+        strcpy(messages, "The chosen selected column does not have card");
         printf("CRASHAND DIE");
         return false;
     }
 
 
-    printf("%d", from);
     Card* tempFrom = *fromPile;
     Card* tempTo = *toPile;
-    printf("Crash1");
 
 
     if (from == -1) {
         while ((*fromPile)->next != NULL) {
-            printf("Crash1.1");
             (*fromPile) = (*fromPile)->next;
         }
     }
-    printf("mamma im doing good\n");
     for (int i = 0; i < from; i ++) {
-        printf("Crash1.2");
         (*fromPile) = (*fromPile)->next;
     }
-    printf("mamma im doing goodv2\n");
     if ((*toPile) != NULL) {
         while ((*toPile)->next != NULL) {
-            printf("Crash1.3");
             (*toPile) = (*toPile)->next;
         }
     }
 
 
-    printf("mamma im doing goodv3\n");
-
-
-    printf("%d", (*fromPile)->flipped);
-    printf("%c%c\n", (*fromPile)->cardType, (*fromPile)->cardValue);
-
-    printf("mamma im doing goodv4 <<<<<<<<\n");
-
     if ((*fromPile)->flipped == true){
-        printf("mamma im doing goodv4.1 \n");
         *fromPile = tempFrom;
         *toPile = tempTo;
+        strcpy(messages, "Card is still flipped upside down");
         return false;
     }
-    printf("mamma im doing goodv4.2\n");
 
     if (!endPile) {
-        printf("mamma im doing goodv4.3\n");
-        if (!checkLegalMove(fromPile, toPile, from)) {
-            printf("\nIllegal move!\n");
+        if (!checkMoveC(fromPile, toPile, from)) {
+            strcpy(messages, "Illegal move");
+            printf("\nIllegal move to main board!\n");
             *fromPile = tempFrom;
             *toPile = tempTo;
             return false;
         }
     } else{
-        printf("mamma im doing goodv4.5\n");
-        if (!checkLegalMove2(fromPile, toPile, from)) {
-            printf("\nIllegal move!\n");
+        if (!checkMoveF(fromPile, toPile, from)) {
+            strcpy(messages, "Illegal move!");
+            printf("\nIllegal move to end pile!\n");
             *fromPile = tempFrom;
             *toPile = tempTo;
             return false;
@@ -146,14 +169,10 @@ bool moveCards(Card** fromPile, Card** toPile, int from, bool endPile){
 
 
     // Makes moves from C1-C7 to F1-F4 available - (First card only)
-    printf("mamma im doing goodv5\n");
     if ((*fromPile)->previous == NULL && (*toPile == NULL)){
-        printf("mamma im doing goodv6\n");
         (*toPile) = (*fromPile);
         *fromPile = NULL;
-        printf("mamma im doing goodv8\n");
-        printf("mamma im doing goodv10\n");
-        printf("\n%c%c", (*toPile)->cardType, (*toPile)->cardValue);
+        strcpy(messages, "Movement successful!");
         return true;
     }
     Card* oldPile = *fromPile;
@@ -170,13 +189,10 @@ bool moveCards(Card** fromPile, Card** toPile, int from, bool endPile){
         }
         (*fromPile) = oldPile;
         (*toPile) = newPile;
+        strcpy(messages, "Movement successful!");
         return true;
     }
 
-    printf("mamma im doing goodv11\n");
-
-
-    printf("mamma im doing goodv12\n");
     printf("\n\n%c%c <<<\n\n", (*toPile)->cardValue, (*toPile)->cardType);
     printf("\n\n%c%c <<<\n\n", (*fromPile)->cardValue, (*fromPile)->cardType);
 
@@ -194,6 +210,7 @@ bool moveCards(Card** fromPile, Card** toPile, int from, bool endPile){
 
     *fromPile = tempFrom;
     *toPile = tempTo;
+    strcpy(messages, "Movement successful!");
 
     return true;
 }
