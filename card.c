@@ -207,18 +207,6 @@ char *loadDeck(Card** firstCard, Card** lastCard, const char *fileName, char *te
     return "OK, file loaded";
 }
 
-char *saveMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card** c7,Card** f1,Card** f2,Card** f3,Card** f4){
-    char* fileName = "logs.txt";
-
-    FILE* file = fopen(fileName, "w");
-    if (file == NULL) {
-        return "Error: Unable to create the file. check filepath";
-    }
-    while ((*c1) != NULL){
-        fprintf(file, "%c%c", (*c1)->cardValue, (*c1)->cardType);
-    }
-
-}
 
 // Reads the current deck and saves it
 // As we only want to read the content from the linked list we point to the content of Card
