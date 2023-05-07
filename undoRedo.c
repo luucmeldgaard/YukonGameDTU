@@ -36,8 +36,9 @@ void writeReversedData(FILE *file, Card **card_list) {
     }
 }
 
-char *saveMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card** c7,Card** f1,Card** f2,Card** f3,Card** f4){
-    FILE* file = fopen(fileName, "a");
+char *saveCurrentGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4){
+    printf("\nAm i runnning?\n");
+    FILE* file = fopen(fileName, "w");
 
     writeReversedData(file, c1);
     fprintf(file, "\n");
@@ -77,7 +78,9 @@ char *saveMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card
     return "Success!";
 }
 
+char *loadGame(){
 
+}
 
 
 char *undoMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card** c7,Card** f1,Card** f2,Card** f3,Card** f4){
@@ -248,6 +251,9 @@ char *redoMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card
     if (file == NULL){
         return "No moves made";
     }
+
+
+
 
     for (int i = 0; i < movesUndone; i++){
         for (int j = 0; j < 11; j++) {

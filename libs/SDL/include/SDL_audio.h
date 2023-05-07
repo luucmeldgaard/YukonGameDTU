@@ -682,7 +682,7 @@ extern DECLSPEC void SDLCALL SDL_MixAudioFormat(Uint8 * dst,
  *  There are no limits on the amount of data you can queue, short of
  *  exhaustion of address space. Queued data will drain to the device as
  *  necessary without further intervention from you. If the device needs
- *  audio but there is not enough queued, it will play silence to make up
+ *  audio but there is not enough queued, it will movePileToBoard silence to make up
  *  the difference. This means you will have skips in your audio playback
  *  if you aren't routinely queueing sufficient data.
  *

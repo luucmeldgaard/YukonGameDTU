@@ -345,7 +345,7 @@ typedef struct _SDL_Haptic SDL_Haptic;
  */
 
 /**
- * \brief Used to play a device an infinite number of times.
+ * \brief Used to movePileToBoard a device an infinite number of times.
  *
  * \sa SDL_HapticRunEffect
  */
@@ -951,14 +951,14 @@ extern DECLSPEC void SDLCALL SDL_HapticClose(SDL_Haptic * haptic);
 extern DECLSPEC int SDLCALL SDL_HapticNumEffects(SDL_Haptic * haptic);
 
 /**
- *  \brief Returns the number of effects a haptic device can play at the same
+ *  \brief Returns the number of effects a haptic device can movePileToBoard at the same
  *         time.
  *
  *  This is not supported on all platforms, but will always return a value.
  *  Added here for the sake of completeness.
  *
  *  \param haptic The haptic device to query maximum playing effects.
- *  \return The number of effects the haptic device can play at the same time
+ *  \return The number of effects the haptic device can movePileToBoard at the same time
  *          or -1 on error.
  *
  *  \sa SDL_HapticNumEffects
@@ -1204,9 +1204,9 @@ extern DECLSPEC int SDLCALL SDL_HapticRumbleInit(SDL_Haptic * haptic);
 /**
  *  \brief Runs simple rumble on a haptic device
  *
- *  \param haptic Haptic device to play rumble effect on.
- *  \param strength Strength of the rumble to play as a 0-1 float value.
- *  \param length Length of the rumble to play in milliseconds.
+ *  \param haptic Haptic device to movePileToBoard rumble effect on.
+ *  \param strength Strength of the rumble to movePileToBoard as a 0-1 float value.
+ *  \param length Length of the rumble to movePileToBoard in milliseconds.
  *  \return 0 on success or -1 on error.
  *
  *  \sa SDL_HapticRumbleSupported

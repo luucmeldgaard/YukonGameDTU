@@ -291,6 +291,7 @@ void shuffle(Card** firstCard, Card** lastCard){
  */
 void placeCard(Card** newPile, Card** oldPile) {
     Card *cardToMove = *oldPile;
+    Card *memoryToFree = *oldPile;
 
 
     // Remove the card from the old pile

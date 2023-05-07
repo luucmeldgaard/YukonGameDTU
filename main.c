@@ -7,6 +7,7 @@
 #include "card.h"
 #include "logic.h"
 #include "printText.h"
+#include "undoRedo.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -17,7 +18,7 @@ const int SCREEN_HEIGHT = 480;
  * @param firstCard
  * @param lastCard
  */
-void play(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7){
+void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7){
 
 
     printf("%c%c\n", (*firstCard)->cardValue, (*firstCard)->cardType);
@@ -82,9 +83,37 @@ void play(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Ca
     }
 }
 
+
+void freeBoardPiles(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4) {
+    Card* tempCard;
+    Card* piles[] = {*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4};
+    for (int i = 0; i < 11; i++) {
+        Card* currentPile = piles[i];
+
+        printf("\ndoing stuff\n");
+        while (currentPile != NULL) {
+            tempCard = currentPile;
+
+            if (*lastCard == NULL) {
+                *firstCard = tempCard;
+                *lastCard = tempCard;
+                tempCard->previous = NULL;
+            } else {
+                tempCard->previous = *lastCard;
+                (*lastCard)->next = tempCard;
+                *lastCard = tempCard;
+            }
+
+            currentPile = currentPile->next;
+            (*lastCard)->next = NULL;
+        }
+    }
+}
+
+
 // PLACE BACK HERE IF NO WORKING
 
-void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4){
+void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4){
     printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "Welcome!");
     char usrInput[256];
     bool moveByColumn;
@@ -102,6 +131,8 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
 
 
             if (usrInput[0] == 'Q'){
+                freeBoardPiles(firstCard, lastCard, c1, c2, c3, c4, c5, c6, c7, f1, f2, f3, f4);
+
                 return;
             }
 
@@ -313,6 +344,8 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
                 }
             }
 
+
+
             printf("´\nGucci gucci gucci gucci v1\n");
 
             Card* temp = *chosenDeck1;
@@ -354,11 +387,43 @@ void playGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, 
 }
 
 
+Card* copyLinkedList(Card* firstCard) {
+    if (firstCard == NULL) {
+        return NULL;
+    }
+
+    Card* newCard = (Card*) malloc(sizeof(Card));
+    newCard->next = NULL;
+    newCard->previous = NULL;
+
+    Card* currentCard = firstCard;
+    Card* newCurrentCard = newCard;
+
+    while (currentCard != NULL) {
+        newCurrentCard->next = (Card*) malloc(sizeof(Card));
+        newCurrentCard->next->previous = newCurrentCard;
+        newCurrentCard->next->next = NULL;
+
+        currentCard = currentCard->next;
+        newCurrentCard = newCurrentCard->next;
+    }
+
+    return newCard;
+}
+
+
+
 void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
     // The card is split into 7 columns
     Card* c1 = NULL; Card* c2 = NULL; Card* c3 = NULL; Card* c4 = NULL; Card* c5 = NULL; Card* c6 = NULL; Card* c7 = NULL;
     // 4 additional lists is made for finished cards
     Card* f1 = NULL; Card* f2 = NULL; Card* f3 = NULL; Card* f4 = NULL;
+    Card* currentDeck = copyLinkedList(*firstCard);
+
+
+
+
+
     ///// Program breaks if more than 128 chars is inputted. It will override memory.
     char input[256]; //Allocates the space fo the string
     char filename[256];
@@ -437,13 +502,18 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
         }
             // "Play" - starts the game
         else if ((strcmp(input,"P")) == 0){ //strcmp returns 0 if theyre the same.
-            play(firstCard, lastCard, &c1, &c2, &c3, &c4, &c5, &c6, &c7);
-            playGame(&c1, &c2, &c3, &c4, &c5, &c6, &c7, &f1, &f2, &f3, &f4);
+            if ((*firstCard) != NULL){
+                movePileToBoard(firstCard, lastCard, &c1, &c2, &c3, &c4, &c5, &c6, &c7);
+            }
+            playGame(firstCard, lastCard, &c1, &c2, &c3, &c4, &c5, &c6, &c7, &f1, &f2, &f3, &f4);
             printf("s");
         }
         else if ((strcmp(input,"QQ")) == 0){ //strcmp returns 0 if theyre the same.
             printf("s");
             exit(0);
+        } else if ((strcmp(input, "test")) == 0) {
+            printf("test");
+            saveCurrentGame(&c1, &c2, &c3, &c4, &c5, &c6, &c7, &f1, &f2, &f3, &f4);
         }
         else{
             printf("Wrong command");
@@ -547,7 +617,7 @@ int main(int argc, char* args[]){
     printf("\n\n");
     //splitShuffle(&firstCard, &lastCard);
     showCards(firstCard);
-    play(&firstCard, &lastCard, &c1, &c2, &c3, &c4, &c5, &c6, &c7);
+    movePileToBoard(&firstCard, &lastCard, &c1, &c2, &c3, &c4, &c5, &c6, &c7);
     //showCards(firstCard);
 
     printf("\n The board below is the current card deck: \n");
