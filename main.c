@@ -502,6 +502,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
                     if(moveCards(chosenDeck1, chosenDeck2, height, endPile, messages, redo) == true) {
                         break;
                     } else {
+                        break;
                         //strcpy(messages, "No cards in pile or invalid move");
                     }
                 }
@@ -772,7 +773,7 @@ bool loadMedia(SDL_Window* window, SDL_Surface** screenSurface) {
 
 int main(int argc, char* args[]){
 
-
+/*
     //The window we'll be rendering to
     SDL_Window* window = NULL;
 
@@ -798,7 +799,7 @@ int main(int argc, char* args[]){
             }
         }
     }
-
+*/
 
     /*
  * Essentially we are creating an object of type Card and do stuff with it

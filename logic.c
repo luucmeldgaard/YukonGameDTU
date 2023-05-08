@@ -66,7 +66,7 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
             }
         } else {
             if (!checkMoveF(fromPile, toPile)) {
-                strcpy(messages, "Illegal move!");
+                strcpy(messages, "Illegal moves!");
                 printf("\nIllegal move to end pile!\n");
                 *fromPile = tempFrom;
                 *toPile = tempTo;
@@ -101,17 +101,37 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
         return true;
     }
 
-    printf("\n\n%c%c <<<\n\n", (*toPile)->cardValue, (*toPile)->cardType);
-    printf("\n\n%c%c <<<\n\n", (*fromPile)->cardValue, (*fromPile)->cardType);
+
 
     Card* cardToMove = oldPile;
+
     ////////////////////////////////////////
     // Wrong pile is moved, fix me ////////////////
     //////////////////////////////////////////////
+
+    if (oldPile->previous == NULL && newPile->previous == NULL){
+        newPile->next = oldPile;
+        oldPile->previous = newPile;
+        oldPile = NULL;
+        *fromPile = NULL;
+        *toPile = newPile;
+        printf("crashing here afgais");
+        return true;
+    }
+
+    if (oldPile->previous == NULL){
+        newPile->next = cardToMove;
+        cardToMove->previous = newPile;
+        oldPile = NULL;
+        *fromPile = NULL;
+        *toPile = tempTo;
+        printf("crashing here afgaingsdfsdsdafds");
+        return true;
+    }
+
     oldPile = oldPile->previous;
     oldPile->flipped = false;
     oldPile->next = NULL;
-
     newPile->next = cardToMove;
     cardToMove->previous = newPile;
 

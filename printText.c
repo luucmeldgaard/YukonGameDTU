@@ -158,6 +158,9 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
             if (f1 == NULL){
                 printf("[]\tF1");
             } else {
+                while (f1->next != NULL){
+                    f1 = f1->next;
+                }
                 //printf("%c%c\t", f1->cardValue, f1->cardType == 'C' ? (char) 5 : f1->cardType == 'S' ? (char) 6 : f1->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\tF1", f1->cardValue, f1->cardType);
             }
@@ -165,6 +168,9 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
             if(f2 == NULL){
                 printf("[]\tF2");
             } else {
+                while (f2->next != NULL){
+                    f2 = f2->next;
+                }
                 //printf("%c%c\t", f2->cardValue, f2->cardType == 'C' ? (char) 5 : f2->cardType == 'S' ? (char) 6 : f2->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\tF2", f2->cardValue, f2->cardType);
             }
@@ -172,6 +178,9 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
             if (f3 == NULL){
                 printf("[]\tF3");
             } else {
+                while (f3->next != NULL){
+                    f3 = f3->next;
+                }
                 //printf("%c%c\t", f3->cardValue, f3->cardType == 'C' ? (char) 5 : f3->cardType == 'S' ? (char) 6 : f3->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\tF3", f3->cardValue, f3->cardType);
             }
@@ -179,6 +188,9 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
             if (f4 == NULL){
                 printf("[]\tF4");
             } else {
+                while (f4->next != NULL){
+                    f4 = f4->next;
+                }
                 //printf("%c%c\t", f4->cardValue, f4->cardType == 'C' ? (char) 5 : f4->cardType == 'S' ? (char) 6 : f4->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\tF4", f4->cardValue, f4->cardType);
             }
