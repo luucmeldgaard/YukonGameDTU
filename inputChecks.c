@@ -24,6 +24,7 @@ bool checkCardValue(Card** fromPile, Card** toPile){
 
     printf("\nSo, SO SOSOOOO truev7\n");
     if (secondCard->cardValue == 'A' && firstCard->cardValue == '2' ||
+            secondCard->cardValue == '9' && firstCard->cardValue == 'T' ||
             secondCard->cardValue == 'T' && firstCard->cardValue == 'J' ||
             secondCard->cardValue == 'J' && firstCard->cardValue == 'Q' ||
             secondCard->cardValue == 'Q' && firstCard->cardValue == 'K') {
