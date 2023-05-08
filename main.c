@@ -196,9 +196,9 @@ char* undo() {
 
 
 
+
     if (currentMove->prev == NULL) {
-        printf("CURRENTMOVE IS NULL");
-        moves = NULL;
+        currentMove = NULL;
         return result;
     }
 
