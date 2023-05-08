@@ -8,10 +8,29 @@
 
 int movesUndone = 0;
 char* fileName = "logs.txt";
+char* fileName2 = "reversedLogs.txt";
 
 void resetMovesUndoneCounter(){
     movesUndone = 0;
 }
+
+void reverseSaveMove(char* move){
+    FILE* file2 = fopen(fileName2, "w");
+}
+
+char *saveMove(char* move){
+    FILE* file = fopen(fileName, "w");
+    fprintf(file, "%s", move);
+    fprintf(file, "\n");
+    fclose(file);
+    return "true";
+}
+
+
+
+
+// bad attempts...
+
 
 void writeReversedData(FILE *file, Card **card_list) {
     // Count the number of cards in the list
@@ -35,7 +54,6 @@ void writeReversedData(FILE *file, Card **card_list) {
         fprintf(file, "%c%c", temp->cardValue, temp->cardType);
     }
 }
-
 char *saveCurrentGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4){
     printf("\nAm i runnning?\n");
     FILE* file = fopen(fileName, "w");
@@ -413,3 +431,4 @@ char *redoMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card
 
 
 }
+

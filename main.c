@@ -13,6 +13,13 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
 
+
+typedef struct currentGame{
+    char* move;
+    struct currentGame *next;
+    struct currentGame *prev;
+} currentGame;
+
 /**
  * Function for playing the game. This function tak
  * @param firstCard
@@ -111,10 +118,31 @@ void freeBoardPiles(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card*
 }
 
 
-// PLACE BACK HERE IF NO WORKING
+void nextMove(char* usrInput, currentGame** chain){
+    currentGame* move = (currentGame*)(malloc(sizeof(currentGame)));
+    move->move = strdup(usrInput);
+    move->next = NULL;
+    move->prev = NULL;
+
+    if (*chain == NULL){
+        *chain = move;
+        return;
+    }
+
+    currentGame* temp = *chain;
+    while (temp->next != NULL){
+        temp = temp->next;
+    }
+    move->prev = temp;
+    temp->next = move;
+}
+
+
+
 
 void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4){
     printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "Welcome!");
+    currentGame* moves = NULL;
     char usrInput[256];
     bool moveByColumn;
     bool endPile;
@@ -123,6 +151,13 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
     char messages[256];
     while (true) {
         while (true) {
+            currentGame* temp = moves;
+            while (temp != NULL){
+                printf("\n\n%s\n\n", temp->move);
+                temp = temp->next;
+            }
+
+
             endPile = false;
             memset(usrInput, '\0', 256); // Clears the input array
             fflush(stdin); // Clears input buffer
@@ -275,7 +310,6 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
             } else {
                 //strcpy(messages, "Move failed");
             }
-
             printf("´\nGucci gucci gucci gucci v0.5");
         }
             //////// End of checks for moving columns /////////////
@@ -344,7 +378,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
                 }
             }
 
-
+            //saveMove(usrInput);
 
             printf("´\nGucci gucci gucci gucci v1\n");
 
@@ -381,8 +415,11 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
         //printf("\n\n%c%c\n\n", (*chosenDeck1)->cardValue, (*chosenDeck2)->cardValue);
         printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, messages);
+        //nextMove(usrInput, &moves);
         printf("Input is great§!");
+
     }
+
 
 }
 
