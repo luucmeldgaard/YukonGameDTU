@@ -44,7 +44,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
         if (cardsPlaced[0] == 0) {
             placeCard(c1, firstCard);
             cardsPlaced[0] += 1;
-            printf("c1 placed\n");
+            //printf("c1 placed\n");
         }
         if (cardsPlaced[1] < 6) {
             if (cardsPlaced[1] == 0){
@@ -52,7 +52,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             }
             placeCard(c2, firstCard);
             cardsPlaced[1] += 1;
-            printf("c2 placed\n");
+            //printf("c2 placed\n");
         }
         if (cardsPlaced[2] < 7) {
             if (cardsPlaced[2] < 2) {
@@ -60,7 +60,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             }
             placeCard(c3, firstCard);
             cardsPlaced[2] += 1;
-            printf("c3 placed\n");
+            //printf("c3 placed\n");
         }
         if (cardsPlaced[3] < 8) {
             if (cardsPlaced[3] < 3){
@@ -68,7 +68,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             }
             placeCard(c4, firstCard);
             cardsPlaced[3] += 1;
-            printf("c4 placed\n");
+            //printf("c4 placed\n");
         }
         if (cardsPlaced[4] < 9) {
             if ((*firstCard) == NULL){ return;}
@@ -77,7 +77,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             }
             placeCard(c5, firstCard);
             cardsPlaced[4] += 1;
-            printf("c5 placed\n");
+            //printf("c5 placed\n");
         }
         if (cardsPlaced[5] < 10) {
             if (cardsPlaced[5] < 5){
@@ -85,7 +85,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             }
             placeCard(c6, firstCard);
             cardsPlaced[5] += 1;
-            printf("c6 placed\n");
+            //printf("c6 placed\n");
         }
         if (cardsPlaced[6] < 11) {
             if (cardsPlaced[6] < 6){
@@ -93,7 +93,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             }
             placeCard(c7, firstCard);
             cardsPlaced[6] += 1;
-            printf("c7 placed\n");
+            //printf("c7 placed\n");
         }
     }
     printf("\n\n -------------------- FINISHED _--------------------------------\n\n");
@@ -143,29 +143,30 @@ char* undo() {
 
     char* testString = "C1:S2->C4";
 
-    printf("\nHer0.5\n");
 
     currentGame* currentMove = moves;
-    printf("\nHer0.55\n");
+
 
     while (currentMove->next != NULL) {
         currentMove = currentMove->next;
     }
-    printf("\nHer0.6\n");
+
+    if (currentMove->prev == NULL) {
+        return "0";
+    }
+
 
     char *firstCard = malloc(8*sizeof(char));
     char *secondCard = malloc(8*sizeof(char));
-    printf("\nHer0.7\n");
     *firstCard = '\0';
     *secondCard = '\0';
     bool nextCard = false;
 
-    printf("\nHer1\n");
 
     char* move = currentMove->move;
 
 
-    printf("move: %s\n", move);
+    //printf("move: %s\n", move);
 
     int size = strlen(move);
 
@@ -181,7 +182,7 @@ char* undo() {
         }
     }
 
-    printf("\nHer2\n");
+    //printf("\nHer2\n");
 
     printf("move reversed: %s -> %s\n", secondCard, firstCard);
     char *result = malloc(8*sizeof(char));
@@ -191,17 +192,8 @@ char* undo() {
     strcat(result, "->");
     strcat(result, firstCard);
 
-    printf("result: %s\n", result);
+    //printf("result: %s\n", result);
 
-    printf("\nHer2.1\n");
-    /*currentMove = currentMove->prev;
-    if (currentMove == NULL) {
-        printf("previous is NULL");
-    }
-    printf("THIS IS THE CURRENT MOVE: %s", currentMove->move);
-    printf("\nHer2.2\n");
-    currentMove->next = NULL;
-    */
 
 
     if (currentMove->prev == NULL) {
@@ -210,10 +202,9 @@ char* undo() {
         return result;
     }
 
-
     currentMove = currentMove->prev;
-
     currentMove->next = NULL;
+
 
     /*
     currentMove = moves;
@@ -229,9 +220,6 @@ char* undo() {
     }
      */
 
-    currentMove->next = NULL;
-
-    printf("\nHer3\n");
 
     return result;
 
@@ -253,7 +241,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
         while (true) {
             currentGame* temp = moves;
             while (temp != NULL){
-                printf("\n\n%s\n\n", temp->move);
+                //printf("\n\n%s\n\n", temp->move);
                 temp = temp->next;
             }
 
@@ -272,29 +260,30 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
             }
 
             if (usrInput[0] == 'U') {
-                printf("\nHer4\n");
                 memset(usrInput, '\0', 256); // Clears the input array
                 fflush(stdin); // Clears input buffer
                 //strcpy(usrInput, undo());
-                printf("\nHer5\n");
                 char *result = undo();
                 redo = true;
                 int resultLength  = strlen(result);
                 char resultArray[resultLength + 1];
 
-                printf("\nHer6\n");
 
                 strcpy(resultArray, result);
                 strcpy(usrInput, resultArray);
-                //printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "all good");
 
-                printf("\nHer7\n");
-                printf("THE USER INPUT %s", usrInput);
+                if (usrInput[0] == '0') {
+                    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "Nothing to undo! (Or less than one move made) ");
+                    continue;
+                }
+
+                //printf("\nHer7\n");
+                //printf("THE USER INPUT %s", usrInput);
 
             }
 
             if (!(usrInput[2] == ':' && usrInput[5] == '-' && usrInput[6] == '>' || usrInput[2] == '-' && usrInput[3] == '>')){
-                printf("leave a message some time");
+                printf("leave a message some time\n");
                 continue;
             }
 
@@ -302,37 +291,37 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
             if (usrInput[2] == ':' && usrInput[5] == '-' && usrInput[6] == '>') {
 
                 if (usrInput[1] == usrInput[8] && usrInput[0] == usrInput[7]){
-                    printf("leave a message some time");
+                    printf("leave a message some time\n");
                     continue;
                 }
 
 
                 printf("\nAt first line\n");
                 if (!(usrInput[0] == 'C' || usrInput[0] == 'F')) {
-                    printf("no good input1: %c", usrInput[0]);
+                    printf("no good input: %c", usrInput[0]);
                     continue;
 
                 } else if (!(usrInput[1] >= '1' && usrInput[1] <= '7')) {
-                    printf("no good input2: ");
+                    printf("no good input: ");
                     continue;
 
                 } else if (!(usrInput[3] >= '1' && usrInput[3] <= '9') && usrInput[3] != 'T' && usrInput[3] != 'A' && usrInput[3] != 'J' &&
                            usrInput[3] != 'Q' && usrInput[3] != 'K') {
-                    printf("no good input3: ");
+                    printf("no good input: ");
                     continue;
 
                 } else if (!(usrInput[4] == 'C' || usrInput[4] == 'S' || usrInput[4] == 'H' || usrInput[4] == 'D')){
-                    printf("no good input4: ");
+                    printf("no good input: ");
                     continue;
                 } else if (!(usrInput[0] == 'C' || usrInput[0] == 'F')){
-                    printf("no good input5: ");
+                    printf("no good input: ");
                     continue;
                 } else if(!(usrInput[1] >= '1' && usrInput[1] <= '7')){
-                    printf("no good input6: ");
+                    printf("no good input: ");
                     continue;
                 }
                 else {
-                    printf("BREAK1");
+                    //printf("BREAK1");
                     moveByColumn = false;
                     break;
                 }
@@ -344,23 +333,23 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
                 }
                 printf("\nAt second line\n");
                 if (!(usrInput[0] == 'C' || usrInput[0] == 'F')) {
-                    printf("no good input7: %c", usrInput[0]);
+                    printf("no good input: %c", usrInput[0]);
                     continue;
 
                 } else if (!(usrInput[1] >= '1' && usrInput[1] <= '7')) {
-                    printf("no good input8: ");
+                    printf("no good input: ");
                     continue;
 
                 } else if (!(usrInput[4] == 'C' || usrInput[4] == 'F')){
-                    printf("no good input9: ");
+                    printf("no good input: ");
                     continue;
                 } else if(!(usrInput[5] >= '1' && usrInput[5] <= '7')){
-                    printf("no good input10: ");
+                    printf("no good input: ");
                     continue;
                 }
                 else {
                     moveByColumn = true;
-                    printf("BREAK2");
+                    //printf("BREAK2");
                     break;
                 }
             }
@@ -500,14 +489,13 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
             //saveMove(usrInput);
 
-            printf("´\nGucci gucci gucci gucci v1\n");
+            //printf("´\nGucci gucci gucci gucci v1\n");
 
             Card* temp = *chosenDeck1;
             int height = 0;
             bool cardInColumn = false;
             while (*chosenDeck1 != NULL){
-                printf("\n%s\n", usrInput);
-                printf("´\nGucci gucci gucci gucci v1\n");
+                //printf("\n%s\n", usrInput);
                 if ((*chosenDeck1)->cardValue == usrInput[3] && (*chosenDeck1)->cardType == usrInput[4]){
                     *chosenDeck1 = temp;
                     cardInColumn = true;
@@ -784,7 +772,7 @@ bool loadMedia(SDL_Window* window, SDL_Surface** screenSurface) {
 
 int main(int argc, char* args[]){
 
-    /*
+
     //The window we'll be rendering to
     SDL_Window* window = NULL;
 
@@ -810,7 +798,7 @@ int main(int argc, char* args[]){
             }
         }
     }
-    */
+
 
     /*
  * Essentially we are creating an object of type Card and do stuff with it

@@ -62,7 +62,8 @@ void showCards(Card* firstCard){
  * Prints the current board. Not much to be explained, just a bunch of if statements printing stuff.
  */
 void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c6, Card* c7, Card* f1, Card* f2, Card* f3, Card* f4, char* message){
-    printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    printf("\nC1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
     int lineCounter = 0;
 
 
