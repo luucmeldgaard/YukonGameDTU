@@ -21,6 +21,7 @@ const int SCREEN_HEIGHT = 480;
 void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7){
 
 
+
     printf("%c%c\n", (*firstCard)->cardValue, (*firstCard)->cardType);
 
     int cardsPlaced[] = {0,0,0,0,0,0,0};
@@ -50,6 +51,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             }
             placeCard(c3, firstCard);
             cardsPlaced[2] += 1;
+            printf("c3 placed\n");
         }
         if (cardsPlaced[3] < 8) {
             if (cardsPlaced[3] < 3){
@@ -57,6 +59,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             }
             placeCard(c4, firstCard);
             cardsPlaced[3] += 1;
+            printf("c4 placed\n");
         }
         if (cardsPlaced[4] < 9) {
             if ((*firstCard) == NULL){ return;}
@@ -65,6 +68,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             }
             placeCard(c5, firstCard);
             cardsPlaced[4] += 1;
+            printf("c5 placed\n");
         }
         if (cardsPlaced[5] < 10) {
             if (cardsPlaced[5] < 5){
@@ -72,6 +76,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             }
             placeCard(c6, firstCard);
             cardsPlaced[5] += 1;
+            printf("c6 placed\n");
         }
         if (cardsPlaced[6] < 11) {
             if (cardsPlaced[6] < 6){
@@ -79,34 +84,29 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             }
             placeCard(c7, firstCard);
             cardsPlaced[6] += 1;
+            printf("c7 placed\n");
         }
     }
+    printf("\n\n -------------------- FINISHED _--------------------------------\n\n");
 }
 
 
-void freeBoardPiles(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4) {
+void freeBoardPiles(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4) {
     Card* tempCard;
     Card* piles[] = {*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4};
+
+
+
     for (int i = 0; i < 11; i++) {
         Card* currentPile = piles[i];
 
-        printf("\ndoing stuff\n");
         while (currentPile != NULL) {
             tempCard = currentPile;
-
-            if (*lastCard == NULL) {
-                *firstCard = tempCard;
-                *lastCard = tempCard;
-                tempCard->previous = NULL;
-            } else {
-                tempCard->previous = *lastCard;
-                (*lastCard)->next = tempCard;
-                *lastCard = tempCard;
-            }
-
             currentPile = currentPile->next;
-            (*lastCard)->next = NULL;
+            free(tempCard);
         }
+
+        piles[i] = NULL;
     }
 }
 
@@ -131,7 +131,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
 
             if (usrInput[0] == 'Q'){
-                freeBoardPiles(firstCard, lastCard, c1, c2, c3, c4, c5, c6, c7, f1, f2, f3, f4);
+                freeBoardPiles(c1, c2, c3, c4, c5, c6, c7, f1, f2, f3, f4);
 
                 return;
             }
@@ -387,30 +387,36 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 }
 
 
-Card* copyLinkedList(Card* firstCard) {
-    if (firstCard == NULL) {
+Card* copyLinkedList(Card* toCopy){
+    if (toCopy == NULL) {
         return NULL;
     }
 
-    Card* newCard = (Card*) malloc(sizeof(Card));
-    newCard->next = NULL;
-    newCard->previous = NULL;
+    Card* newPile = NULL;
+    Card* temp = toCopy;
+    Card* newCard = NULL;
+    Card* prevCard = NULL;
 
-    Card* currentCard = firstCard;
-    Card* newCurrentCard = newCard;
+    while (temp != NULL) {
+        newCard = (Card*) malloc(sizeof(Card));
+        newCard->cardValue = temp->cardValue;
+        newCard->cardType = temp->cardType;
+        newCard->next = NULL;
+        newCard->flipped = false;
 
-    while (currentCard != NULL) {
-        newCurrentCard->next = (Card*) malloc(sizeof(Card));
-        newCurrentCard->next->previous = newCurrentCard;
-        newCurrentCard->next->next = NULL;
+        if (prevCard != NULL) {
+            prevCard->next = newCard;
+            newCard->previous = prevCard;
+        } else {
+            newCard->previous = NULL;
+            newPile = newCard;
+        }
 
-        currentCard = currentCard->next;
-        newCurrentCard = newCurrentCard->next;
+        prevCard = newCard;
+        temp = temp->next;
     }
-
-    return newCard;
+    return newPile;
 }
-
 
 
 void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
@@ -418,7 +424,12 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
     Card* c1 = NULL; Card* c2 = NULL; Card* c3 = NULL; Card* c4 = NULL; Card* c5 = NULL; Card* c6 = NULL; Card* c7 = NULL;
     // 4 additional lists is made for finished cards
     Card* f1 = NULL; Card* f2 = NULL; Card* f3 = NULL; Card* f4 = NULL;
-    Card* currentDeck = copyLinkedList(*firstCard);
+
+// Creating a deck in a very weird way... Dont ask... We fucked up pointers so long ago it's a wonder it still works :)
+    Card* copyList;
+    Card** currentCard = &copyList;
+    Card** currentLastCard;
+    Card* temp = *currentCard;
 
 
 
@@ -431,6 +442,8 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
     char saveChar;
 
     while (true){
+
+
         int i = 0;
         printf("What would you like to do? \nLD <filename> \nSW \nSI<split> \nSR \nSD <filepath> \nP \nQQ (quit)\n");
         // --- Can break the
@@ -502,10 +515,26 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
         }
             // "Play" - starts the game
         else if ((strcmp(input,"P")) == 0){ //strcmp returns 0 if theyre the same.
-            if ((*firstCard) != NULL){
-                movePileToBoard(firstCard, lastCard, &c1, &c2, &c3, &c4, &c5, &c6, &c7);
+            // The card is split into 7 columns
+            c1 = NULL; c2 = NULL; c3 = NULL; c4 = NULL; c5 = NULL; c6 = NULL; c7 = NULL;
+            // 4 additional lists is made for finished cards
+            f1 = NULL; f2 = NULL; f3 = NULL; f4 = NULL;
+            copyList = copyLinkedList(*firstCard);
+            currentCard = &copyList;
+            temp = *currentCard;
+            printf("\n -----------------------------------------------\n");
+            while (temp != NULL){
+                currentLastCard = &temp;
+                printf("\n%c%c\n", (*currentLastCard)->cardValue, (*currentLastCard)->cardType);
+                temp = temp->next;
             }
-            playGame(firstCard, lastCard, &c1, &c2, &c3, &c4, &c5, &c6, &c7, &f1, &f2, &f3, &f4);
+            printf("\n -----------------------------------------------\n");
+
+
+            if ((*currentCard) != NULL){
+                movePileToBoard(currentCard, currentLastCard, &c1, &c2, &c3, &c4, &c5, &c6, &c7);
+            }
+            playGame(currentCard, currentLastCard, &c1, &c2, &c3, &c4, &c5, &c6, &c7, &f1, &f2, &f3, &f4);
             printf("s");
         }
         else if ((strcmp(input,"QQ")) == 0){ //strcmp returns 0 if theyre the same.
