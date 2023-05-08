@@ -417,7 +417,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
         printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, messages);
         //nextMove(usrInput, &moves);
         printf("Input is great§!");
-
+        nextMove(usrInput, &moves);
     }
 
 
