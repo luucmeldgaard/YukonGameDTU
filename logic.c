@@ -15,7 +15,7 @@
 
 // Assignment
 
-bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *messages) {
+bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *messages, bool redo) {
 
     if (redo == true) {
         printf("true");
@@ -47,28 +47,31 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
     }
 
 
-    if ((*fromPile)->flipped == true){
-        *fromPile = tempFrom;
-        *toPile = tempTo;
-        strcpy(messages, "Card is still flipped upside down");
-        return false;
-    }
 
-    if (!endPile) {
-        if (!checkMoveC(fromPile, toPile)) {
-            strcpy(messages, "Illegal move");
-            printf("\nIllegal move to main board!\n");
+
+    if (redo == false) {
+        if ((*fromPile)->flipped == true){
             *fromPile = tempFrom;
             *toPile = tempTo;
+            strcpy(messages, "Card is still flipped upside down");
             return false;
         }
-    } else{
-        if (!checkMoveF(fromPile, toPile)) {
-            strcpy(messages, "Illegal move!");
-            printf("\nIllegal move to end pile!\n");
-            *fromPile = tempFrom;
-            *toPile = tempTo;
-            return false;
+        if (!endPile) {
+            if (!checkMoveC(fromPile, toPile)) {
+                strcpy(messages, "Illegal move");
+                printf("\nIllegal move to main board!\n");
+                *fromPile = tempFrom;
+                *toPile = tempTo;
+                return false;
+            }
+        } else {
+            if (!checkMoveF(fromPile, toPile)) {
+                strcpy(messages, "Illegal move!");
+                printf("\nIllegal move to end pile!\n");
+                *fromPile = tempFrom;
+                *toPile = tempTo;
+                return false;
+            }
         }
     }
 
@@ -110,8 +113,6 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
     oldPile->next = NULL;
 
     newPile->next = cardToMove;
-
-
 
     *fromPile = tempFrom;
     *toPile = tempTo;

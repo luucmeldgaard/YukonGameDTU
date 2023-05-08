@@ -13,7 +13,7 @@ bool checkMoveC(Card **fromPile, Card **toPile);
 
 bool checkMoveF(Card **fromPile, Card **toPile);
 
-bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *messages);
+bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *messages, bool redo);
 void splitShuffle(Card** firstCard, Card** lastCard, int split);
 void shuffle(Card** firstCard, Card** lastCard);
 void placeCard(Card** newPile, Card** oldPile);

@@ -432,13 +432,11 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
             } else {
                 //strcpy(messages, "Move failed");
             }
-            printf("´\nGucci gucci gucci gucci v0.5");
         }
             //////// End of checks for moving columns /////////////
 
             //////// Start of checks for moving card at x row ////////
         else {
-            printf("´\nGucci gucci gucci gucci v0.6");
             if (usrInput[0] == 'C') {
                 if (usrInput[1] == '1') {
                     chosenDeck1 = c1;
@@ -513,7 +511,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
                 if ((*chosenDeck1)->cardValue == usrInput[3] && (*chosenDeck1)->cardType == usrInput[4]){
                     *chosenDeck1 = temp;
                     cardInColumn = true;
-                    if(moveCards(chosenDeck1, chosenDeck2, height, endPile, messages) == true) {
+                    if(moveCards(chosenDeck1, chosenDeck2, height, endPile, messages, redo) == true) {
                         break;
                     } else {
                         //strcpy(messages, "No cards in pile or invalid move");
