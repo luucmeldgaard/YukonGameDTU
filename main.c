@@ -20,6 +20,8 @@ typedef struct currentGame{
     struct currentGame *prev;
 } currentGame;
 
+currentGame* moves = NULL;
+
 /**
  * Function for playing the game. This function tak
  * @param firstCard
@@ -137,18 +139,116 @@ void nextMove(char* usrInput, currentGame** chain){
     temp->next = move;
 }
 
+char* undo() {
+
+    char* testString = "C1:S2->C4";
+
+    printf("\nHer0.5\n");
+
+    currentGame* currentMove = moves;
+    printf("\nHer0.55\n");
+
+    while (currentMove->next != NULL) {
+        currentMove = currentMove->next;
+    }
+    printf("\nHer0.6\n");
+
+    char *firstCard = malloc(8*sizeof(char));
+    char *secondCard = malloc(8*sizeof(char));
+    printf("\nHer0.7\n");
+    *firstCard = '\0';
+    *secondCard = '\0';
+    bool nextCard = false;
+
+    printf("\nHer1\n");
+
+    char* move = currentMove->move;
+
+
+    printf("move: %s\n", move);
+
+    int size = strlen(move);
+
+    for (int i = 0; i < size; i++) {
+        if (move[i] == '-' || move[i] == '>') {
+            nextCard = true;
+        }
+        else if (nextCard == true) {
+            strncat(secondCard, &move[i], 1);
+        }
+        else {
+            strncat(firstCard, &move[i], 1);
+        }
+    }
+
+    printf("\nHer2\n");
+
+    printf("move reversed: %s -> %s\n", secondCard, firstCard);
+    char *result = malloc(8*sizeof(char));
+    *result = '\0';
+
+    strcat(result, secondCard);
+    strcat(result, "->");
+    strcat(result, firstCard);
+
+    printf("result: %s\n", result);
+
+    printf("\nHer2.1\n");
+    /*currentMove = currentMove->prev;
+    if (currentMove == NULL) {
+        printf("previous is NULL");
+    }
+    printf("THIS IS THE CURRENT MOVE: %s", currentMove->move);
+    printf("\nHer2.2\n");
+    currentMove->next = NULL;
+    */
+
+
+    if (currentMove->prev == NULL) {
+        printf("CURRENTMOVE IS NULL");
+        moves = NULL;
+        return result;
+    }
+
+
+    currentMove = currentMove->prev;
+
+    currentMove->next = NULL;
+
+    /*
+    currentMove = moves;
+
+    while (currentMove->next != NULL) {
+        currentGame* temp = currentMove;
+        currentMove = currentMove->next;
+        if (currentMove->next == NULL) {
+            currentMove = temp;
+            break;
+        }
+
+    }
+     */
+
+    currentMove->next = NULL;
+
+    printf("\nHer3\n");
+
+    return result;
+
+}
 
 
 
 void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4){
     printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "Welcome!");
-    currentGame* moves = NULL;
     char usrInput[256];
     bool moveByColumn;
     bool endPile;
     Card **chosenDeck1;
     Card **chosenDeck2;
     char messages[256];
+    bool redo = false;
+
     while (true) {
         while (true) {
             currentGame* temp = moves;
@@ -169,6 +269,28 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
                 freeBoardPiles(c1, c2, c3, c4, c5, c6, c7, f1, f2, f3, f4);
 
                 return;
+            }
+
+            if (usrInput[0] == 'U') {
+                printf("\nHer4\n");
+                memset(usrInput, '\0', 256); // Clears the input array
+                fflush(stdin); // Clears input buffer
+                //strcpy(usrInput, undo());
+                printf("\nHer5\n");
+                char *result = undo();
+                redo = true;
+                int resultLength  = strlen(result);
+                char resultArray[resultLength + 1];
+
+                printf("\nHer6\n");
+
+                strcpy(resultArray, result);
+                strcpy(usrInput, resultArray);
+                //printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "all good");
+
+                printf("\nHer7\n");
+                printf("THE USER INPUT %s", usrInput);
+
             }
 
             if (!(usrInput[2] == ':' && usrInput[5] == '-' && usrInput[6] == '>' || usrInput[2] == '-' && usrInput[3] == '>')){
@@ -306,7 +428,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
                     chosenDeck2 = f4;
                 }
             }
-            if (moveCards(chosenDeck1, chosenDeck2, -1, endPile, messages) == true){
+            if (moveCards(chosenDeck1, chosenDeck2, -1, endPile, messages, redo) == true){
             } else {
                 //strcpy(messages, "Move failed");
             }
@@ -415,9 +537,14 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
         //printf("\n\n%c%c\n\n", (*chosenDeck1)->cardValue, (*chosenDeck2)->cardValue);
         printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, messages);
-        //nextMove(usrInput, &moves);
-        printf("Input is great§!");
+        if (redo == true){
+            redo == false;
+        } else {
         nextMove(usrInput, &moves);
+        }
+        //printf("Input is great§!");
+        //nextMove(usrInput, &moves);
+
     }
 
 
@@ -457,6 +584,7 @@ Card* copyLinkedList(Card* toCopy){
 
 
 void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
+
     // The card is split into 7 columns
     Card* c1 = NULL; Card* c2 = NULL; Card* c3 = NULL; Card* c4 = NULL; Card* c5 = NULL; Card* c6 = NULL; Card* c7 = NULL;
     // 4 additional lists is made for finished cards
@@ -595,32 +723,32 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
 /*
  * Global values and game initiation.
  */
-int main(int argc, char* args[]){
-/*
-    //The window we'll be rendering to
-    SDL_Window* window = NULL;
 
-    //The surface contained by the window
-    SDL_Surface* screenSurface = NULL;
+bool init(SDL_Window* window, SDL_Surface** screenSurface) {
+
+    // Initialization flag
+    bool success = true;
 
     //Initialize SDL
     if(SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SLD_ERROR: %s\n", SDL_GetError());
+        success = false;
     }
     else {
         // Create window
         window = SDL_CreateWindow("Yukon Machine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
         if (window == NULL) {
             printf("SDL window could not be created! SDL_Error: %s\n", SDL_GetError());
+            success = false;
         }
         else {
             // Get window surface
-            screenSurface = SDL_GetWindowSurface(window);
+            *screenSurface = SDL_GetWindowSurface(window);
 
-            // Fill the surface white
-            SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface -> format, 0xff, 0xff, 0xff));
+            // Fill the surface with a color
+            SDL_FillRect(*screenSurface, NULL, SDL_MapRGB((*screenSurface)->format, 0xff, 0xff, 0xff));
 
-            // Update the surface
+            // Update the window surface
             SDL_UpdateWindowSurface(window);
 
             // Get window to stay visible
@@ -628,7 +756,63 @@ int main(int argc, char* args[]){
         }
 
     }
-*/
+}
+
+bool loadMedia(SDL_Window* window, SDL_Surface** screenSurface) {
+
+    // Media loading flag
+    bool success = true;
+
+    //The surface contained by the window
+    SDL_Surface* image = NULL;
+
+    // Load image
+    image = SDL_LoadBMP( "C:\\Users\\LuucM\\CLionProjects\\YukonGameDTU\\background.bmp" );
+    if( image == NULL )
+    {
+        printf( "Unable to load image %s! SDL Error: %s\n", "background.bmp", SDL_GetError() );
+        success = false;
+    }
+    else {
+        //Apply the image
+        SDL_BlitSurface( image, NULL, *screenSurface, NULL );
+
+        // Update the window surface
+        SDL_UpdateWindowSurface(window);
+    }
+
+    return success;
+}
+
+int main(int argc, char* args[]){
+
+    /*
+    //The window we'll be rendering to
+    SDL_Window* window = NULL;
+
+    //The surface contained by the window
+    SDL_Surface* screenSurface = NULL;
+
+    // Initialize SDL and get window surface
+    init(window, &screenSurface);
+
+    // Load and apply image to the window surface
+    loadMedia(window, &screenSurface);
+
+    // Update the window surface
+    SDL_UpdateWindowSurface(window);
+
+    // Keep the window open until the user closes it
+    SDL_Event e;
+    bool quit = false;
+    while (!quit) {
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+    }
+    */
 
     /*
  * Essentially we are creating an object of type Card and do stuff with it

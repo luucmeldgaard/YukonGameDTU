@@ -17,6 +17,9 @@
 
 bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *messages) {
 
+    if (redo == true) {
+        printf("true");
+    }
 
     if (*fromPile == NULL){
         strcpy(messages, "The chosen selected column does not have card");
@@ -113,6 +116,7 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
     *fromPile = tempFrom;
     *toPile = tempTo;
     strcpy(messages, "Movement successful!");
+
 
     return true;
 }
