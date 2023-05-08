@@ -113,6 +113,7 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
     oldPile->next = NULL;
 
     newPile->next = cardToMove;
+    cardToMove->previous = newPile;
 
     *fromPile = tempFrom;
     *toPile = tempTo;
