@@ -228,7 +228,7 @@ char* undo() {
 
 
 void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4){
-    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "Welcome!");
+    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4,"P", "Welcome!"); //P is hardcoded here, but could be passed as an arg to playgame(), doesn't really matter
     char usrInput[256];
     bool moveByColumn;
     bool endPile;
@@ -255,7 +255,6 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
             if (usrInput[0] == 'Q'){
                 freeBoardPiles(c1, c2, c3, c4, c5, c6, c7, f1, f2, f3, f4);
-
                 return;
             }
 
@@ -273,7 +272,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
                 strcpy(usrInput, resultArray);
 
                 if (usrInput[0] == '0') {
-                    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "Nothing to undo! (Or less than one move made) ");
+                    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4,usrInput, "Nothing to undo! (Or less than one move made) ");
                     continue;
                 }
 
@@ -489,6 +488,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
             //saveMove(usrInput);
 
+
             //printf("´\nGucci gucci gucci gucci v1\n");
 
             Card* temp = *chosenDeck1;
@@ -523,7 +523,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
         }
 
         //printf("\n\n%c%c\n\n", (*chosenDeck1)->cardValue, (*chosenDeck2)->cardValue);
-        printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, messages);
+        printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "TESTUSERINPUT",messages);
         if (redo == true){
             redo == false;
         } else {
@@ -533,6 +533,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
         //nextMove(usrInput, &moves);
 
     }
+
 
 
 }
