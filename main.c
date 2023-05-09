@@ -85,7 +85,7 @@ void movePileToBoard(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Ca
             cardsPlaced[6] += 1;
         }
     }
-    printf("\n\n -------------------- FINISHED _--------------------------------\n\n");
+    printf("\n\n ---------------------- FINISHED ----------------------\n\n");
 }
 
 
