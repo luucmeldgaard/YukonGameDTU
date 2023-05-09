@@ -281,7 +281,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
             }
 
             if (!(usrInput[2] == ':' && usrInput[5] == '-' && usrInput[6] == '>' || usrInput[2] == '-' && usrInput[3] == '>')){
-                printf("leave a message some time\n");
+                printf("Incorrect user input detected. Please check your input and try again\nInput: ");
                 continue;
             }
 
@@ -289,7 +289,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
             if (usrInput[2] == ':' && usrInput[5] == '-' && usrInput[6] == '>') {
 
                 if (usrInput[1] == usrInput[8] && usrInput[0] == usrInput[7]){
-                    printf("leave a message some time\n");
+                    printf("Incorrect user input detected. Please check your input and try again\nInput: ");
                     continue;
                 }
 
