@@ -564,7 +564,7 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
 
     while (true){
         int i = 0;
-        printf("What would you like to do? \nLD <filename> \nSW \nSI<split> \nSR \nSD <filepath> \nP \nQQ (quit)\n");
+        printf("\nWhat would you like to do? \nLD <filename> \nSW \nSI<split> \nSR \nSD <filepath> \nP \nQQ (quit)\n");
         // --- Can break the
         scanf("%s", &input[0]); // Scanf leaves behind a newline in the buffer, as it stops reading when it reaches a new line
         // handles Load
