@@ -657,7 +657,7 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
         else if ((strcmp(input,"QQ")) == 0){ //strcmp returns 0 if theyre the same.
             printf("s");
             exit(0);
-        } else if ((strcmp(input, "test")) == 0) {
+        } else if ((strcmp(input, "test")) == 0) { //This shouldnt actually run, and is only used for debugging in future versions
             printf("test");
             saveCurrentGame(&c1, &c2, &c3, &c4, &c5, &c6, &c7, &f1, &f2, &f3, &f4);
         }

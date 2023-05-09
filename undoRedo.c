@@ -29,11 +29,9 @@ char *saveMove(char* move){
 }
 
 
-
-
-// bad attempts...
-
-
+///////////////////////////////////////////////////////
+/////THE FOLLOWING CODE IS WIP AND NOT FUNCTIONAL//////
+///////////////////////////////////////////////////////
 void writeReversedData(FILE *file, Card **card_list) {
     // Count the number of cards in the list
     Card *temp = *card_list;
@@ -99,10 +97,8 @@ char *saveCurrentGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Car
 }
 
 
-//Yet to be implemented
-char *loadGame(){
-}
-
+//Yet to be implemented at all
+char *loadGame(){}
 
 char *undoMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card** c7,Card** f1,Card** f2,Card** f3,Card** f4){
     char buffer;
@@ -264,7 +260,6 @@ char *undoMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card
     return "Success!";
 
 }
-
 
 char *redoMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card** c7,Card** f1,Card** f2,Card** f3,Card** f4){
     char buffer;
