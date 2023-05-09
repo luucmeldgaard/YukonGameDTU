@@ -222,8 +222,6 @@ char* undo() {
 
 }
 
-
-
 void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4){
     printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4,"P", "Welcome!"); //P is hardcoded here, but could be passed as an arg to playgame(), doesn't really matter
     char usrInput[256];
@@ -571,7 +569,6 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
 }
 
-
 Card* copyLinkedList(Card* toCopy){
     if (toCopy == NULL) {
         return NULL;
@@ -602,7 +599,6 @@ Card* copyLinkedList(Card* toCopy){
     }
     return newPile;
 }
-
 
 void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
 
@@ -737,7 +733,6 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
     }
 
 }
-
 
 /*
  * ******** IGNORE ALL TEXT IN THIS CLASS, IT IS (probably) NOT VALID! ********************
