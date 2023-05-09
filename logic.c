@@ -80,7 +80,7 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
     if ((*fromPile)->previous == NULL && (*toPile == NULL)){
         (*toPile) = (*fromPile);
         *fromPile = NULL;
-        strcpy(messages, "Movement successful!");
+        strcpy(messages, "Movement successful!3");
         return true;
     }
     Card* oldPile = *fromPile;
@@ -88,6 +88,7 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
 
     // Make moves for kings to empty space available
     if (newPile == NULL){
+        oldPile->previous->flipped = false;
         newPile = oldPile;
         oldPile = oldPile->previous;
         oldPile->next = NULL;
@@ -97,7 +98,7 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
         }
         (*fromPile) = oldPile;
         (*toPile) = newPile;
-        strcpy(messages, "Movement successful!");
+        strcpy(messages, "Movement successful!2");
         return true;
     }
 
@@ -137,7 +138,7 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
 
     *fromPile = tempFrom;
     *toPile = tempTo;
-    strcpy(messages, "Movement successful!");
+    strcpy(messages, "Movement successful!1");
 
 
     return true;

@@ -198,27 +198,69 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
 
         }
 
+        //printf("\n%d\n", lineCounter);
         printf("\n");
         lineCounter += 1;
     }
-    if (lineCounter < 2){
+
+    //printf("\nDone with counting lines at %d :\n", lineCounter);
+
+
+
+    if (lineCounter == 0) {
+        while (f1->next != NULL){
+            f1 = f1->next;
+        }
+
+        printf("\t\t\t\t\t\t\t%c%c\tF1\n", f1->cardValue, f1->cardType);
+        printf("\n");
+        printf("\t\t\t\t\t\t\t%c%c\tF2\n", f2->cardValue, f2->cardType);
+        printf("\n");
+        printf("\t\t\t\t\t\t\t%c%c\tF3\n", f3->cardValue, f3->cardType);
+        printf("\n");
+        printf("\t\t\t\t\t\t\t%c%c\tF4\n", f4->cardValue, f4->cardType);
+    }
+
+    else if (lineCounter <= 2){
+        while (f2->next != NULL){
+            f2 = f2->next;
+        }
+        while (f3->next != NULL){
+            f3 = f3->next;
+        }
+        while (f4->next != NULL){
+            f4 = f4->next;
+        }
         if (lineCounter == 1){
             printf("\n");
         }
-        printf("\t\t\t\t\t\t\tF2\n");
-        printf("\t\t\t\t\t\t\tF3\n");
-        printf("\t\t\t\t\t\t\tF4\n");
-    } else if (lineCounter < 4){
-        if (lineCounter == 2){
+        printf("\t\t\t\t\t\t\t%c%c\tF2\n", f2->cardValue, f2->cardType);
+        printf("\n");
+        printf("\t\t\t\t\t\t\t%c%c\tF3\n", f3->cardValue, f3->cardType);
+        printf("\n");
+        printf("\t\t\t\t\t\t\t%c%c\tF4\n", f4->cardValue, f4->cardType);
+    } else if (lineCounter <= 4){
+        if (lineCounter == 3){
             printf("\n");
         }
-        printf("\t\t\t\t\t\t\tF3\n");
-        printf("\t\t\t\t\t\t\tF4\n");
-    } else if (lineCounter < 6){
-        if (lineCounter == 4){
+        while (f3->next != NULL){
+            f3 = f3->next;
+        }
+        while (f4->next != NULL){
+            f4 = f4->next;
+        }
+        printf("\t\t\t\t\t\t\t%c%c\tF3\n", f3->cardValue, f3->cardType);
+        printf("\n");
+        printf("\t\t\t\t\t\t\t%c%c\tF4\n", f4->cardValue, f4->cardType);
+    } else if (lineCounter <= 6){
+
+        if (lineCounter == 5){
             printf("\n");
         }
-        printf("\t\t\t\t\t\t\tF4\n");
+        while (f4->next != NULL){
+            f4 = f4->next;
+        }
+        printf("\t\t\t\t\t\t\t%c%c\tF4\n", f4->cardValue, f4->cardType);
     }
 
     printf("\n");

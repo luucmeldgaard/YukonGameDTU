@@ -62,15 +62,12 @@ bool checkMoveC(Card **fromPile, Card **toPile) {
 
 
 
-    if (firstCard->cardType == 'C' || firstCard->cardType == 'S') {
-        if (secondCard->cardType == 'D' || secondCard->cardType == 'H' || secondCard == NULL) {
-            //return true;
-        }
-    } else if (firstCard->cardType == 'D' || firstCard->cardType == 'H') {
-        if (secondCard->cardType == 'C' || secondCard->cardType == 'S' || secondCard == NULL) {
-            //return true;
-        }
-    } else {
+    if (firstCard->cardType == 'C' && secondCard->cardType == 'H' || firstCard->cardType == 'C' && secondCard->cardType == 'D') {}
+    else if (firstCard->cardType == 'S' && secondCard->cardType == 'H' || firstCard->cardType == 'S' && secondCard->cardType == 'D'){}
+    else if (firstCard->cardType == 'D' && secondCard->cardType == 'S' || firstCard->cardType == 'D' && secondCard->cardType == 'C') {}
+    else if (firstCard->cardType == 'H' && secondCard->cardType == 'S' || firstCard->cardType == 'H' && secondCard->cardType == 'C'){}
+    else {
+        printf("im false at returning card values");
         return false;
     }
 
