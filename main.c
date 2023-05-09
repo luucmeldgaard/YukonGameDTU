@@ -146,11 +146,6 @@ char* undo() {
 
     currentGame* currentMove = moves;
 
-    if (currentMove == NULL){
-        printf("This command is especially naughty"); //TODO: Fix this so it doesnt crash when undoing on first move
-        return NULL;
-    }
-
     while (currentMove->next != NULL) {
         currentMove = currentMove->next;
     }
@@ -264,14 +259,16 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
                 memset(usrInput, '\0', 256); // Clears the input array
                 fflush(stdin); // Clears input buffer
                 //strcpy(usrInput, undo());
-                char *result = undo();
-                redo = true;
-                int resultLength  = strlen(result);
-                char resultArray[resultLength + 1];
+                if (moves != NULL){
+                    printf("You're being naughty naughty");
+                    char *result = undo();
+                    redo = true;
+                    int resultLength  = strlen(result);
+                    char resultArray[resultLength + 1];
+                    strcpy(resultArray, result);
+                    strcpy(usrInput, resultArray);
+                }
 
-
-                strcpy(resultArray, result);
-                strcpy(usrInput, resultArray);
 
                 if (usrInput[0] == '0') { //TODO: THIS DOESNT PRINT CORRECTLY. Hardcode or fix?
                     printf("BANANANAN");
