@@ -518,9 +518,43 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
         }
 
         if (*f1 != NULL && *f2 != NULL && *f3 != NULL && *f4 != NULL) {
-            if ((*f1)->cardValue == 'K' && (*f2)->cardValue == 'K' && (*f3)->cardValue == 'K' &&
-                (*f4)->cardValue == 'K') {
-                strcpy(messages, "You have won the game!");
+
+            printf("\n\nAm actually at all heree am i not actually here?\n");
+
+            Card* tempf1 = *f1;
+            Card* tempf2 = *f2;
+            Card* tempf3 = *f3;
+            Card* tempf4 = *f4;
+
+            while (tempf1->next != NULL){
+                tempf1 = tempf1->next;
+            }
+            while (tempf2->next != NULL){
+                tempf2 = tempf2->next;
+            }
+            while (tempf3->next != NULL){
+                tempf3 = tempf3->next;
+            }
+            while (tempf4->next != NULL){
+                tempf4 = tempf4->next;
+            }
+
+
+            printf("\n\n%c%c\n", tempf1->cardValue, tempf1->cardType);
+            printf("\n\n%c%c\n", tempf2->cardValue, tempf2->cardType);
+            printf("\n\n%c%c\n", tempf3->cardValue, tempf3->cardType);
+            printf("\n\n%c%c\n", tempf4->cardValue, tempf4->cardType);
+
+            if ((tempf1)->cardValue == 'K' && (tempf2)->cardValue == 'K' && (tempf3)->cardValue == 'K' &&
+                (tempf4)->cardValue == 'K') {
+
+                printf("\n-------------------------------------------------\n");
+                printf("\n|            Congrats, you won!!!!              |\n");
+                printf("\n-------------------------------------------------\n");
+                printf("\n press any button to return to main menu: ");
+                getchar();
+                getchar();
+
                 return;
             }
         }
@@ -778,7 +812,7 @@ bool loadMedia(SDL_Window* window, SDL_Surface** screenSurface) {
 
 int main(int argc, char* args[]){
 
-
+/*
     //The window we'll be rendering to
     SDL_Window* window = NULL;
 
@@ -805,7 +839,7 @@ int main(int argc, char* args[]){
         }
     }
 
-
+*/
 
     /*
  * Essentially we are creating an object of type Card and do stuff with it
