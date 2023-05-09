@@ -80,7 +80,7 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
     if ((*fromPile)->previous == NULL && (*toPile == NULL)){
         (*toPile) = (*fromPile);
         *fromPile = NULL;
-        strcpy(messages, "Movement successful!3");
+        strcpy(messages, "Movement successful!");
         return true;
     }
     Card* oldPile = *fromPile;
@@ -98,7 +98,7 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
         }
         (*fromPile) = oldPile;
         (*toPile) = newPile;
-        strcpy(messages, "Movement successful!2");
+        strcpy(messages, "Movement successful!");
         return true;
     }
 
@@ -138,7 +138,7 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
 
     *fromPile = tempFrom;
     *toPile = tempTo;
-    strcpy(messages, "Movement successful!1");
+    strcpy(messages, "Movement successful!");
 
 
     return true;
