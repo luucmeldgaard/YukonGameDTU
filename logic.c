@@ -125,7 +125,7 @@ bool moveCards(Card **fromPile, Card **toPile, int from, bool endPile, char *mes
         oldPile = NULL;
         *fromPile = NULL;
         *toPile = tempTo;
-        printf("crashing here afgaingsdfsdsdafds");
+        printf("crashing here afgaingsdfsdsdafds"); //TODO: I dont think it crashed?
         return true;
     }
 
