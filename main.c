@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
 #include <stdbool.h>
 #include <SDL.h>
 #include "card.h"
@@ -701,8 +700,8 @@ bool init() {
     SDL_Surface* surface;
     SDL_Surface* surface2;
 
-    surface = IMG_Load("title.png");
-    surface2 = IMG_Load("start.png");
+    surface = IMG_Load("libs/images/title.png");
+    surface2 = IMG_Load("libs/images/start.png");
 
     // loads image to our graphics hardware memory.
     SDL_Texture* tex = SDL_CreateTextureFromSurface(rend, surface);

@@ -8,12 +8,16 @@ set(SDL2_LIB_DIR libs/SDL/lib/x64)
 
 set(SDL2_IMAGE_INCLUDE_DIR libs/SDL_Image/include)
 set(SDL2_IMAGE_LIB_DIR libs/SDL_Image/lib)
+set(IMAGES_DIR libs/images)
 
 include_directories(${SDL2_INCLUDE_DIR})
 link_directories(${SDL2_LIB_DIR})
 
 include_directories(${SDL2_IMAGE_INCLUDE_DIR})
 link_directories(${SDL2_IMAGE_LIB_DIR})
+
+include_directories(${IMAGES_DIR})
+link_directories(${IMAGES_DIR})
 
 # Create an executable target for your main program and link it to your library
 add_executable(YukonGameDTU main.c card.h logic.c logic.h card.c
