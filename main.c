@@ -147,7 +147,8 @@ char* undo() {
     currentGame* currentMove = moves;
 
     if (currentMove == NULL){
-        printf("Fucking up here");
+        printf("This command is especially naughty"); //TODO: Fix this so it doesnt crash when undoing on first move
+        return NULL;
     }
 
     while (currentMove->next != NULL) {
