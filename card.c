@@ -125,7 +125,7 @@ void removeDeck(Card** firstCard){
     while (temp != NULL){
         temp = (*firstCard)->next;
         free(*firstCard);
-        printf("im also doing this");
+        //printf("im also doing this"); //Removed because it doesnt do anything besides make the gui messy
         (*firstCard) = temp;
     }
 }

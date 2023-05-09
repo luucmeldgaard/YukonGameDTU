@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
-//#include <SDL_image.h>
-//#include <SDL_timer.h>
 #include <SDL.h>
 #include "card.h"
 #include "logic.h"
@@ -148,7 +146,6 @@ char* undo() {
 
     currentGame* currentMove = moves;
 
-
     while (currentMove->next != NULL) {
         currentMove = currentMove->next;
     }
@@ -221,8 +218,6 @@ char* undo() {
 
     }
      */
-
-
     return result;
 
 }
@@ -230,7 +225,7 @@ char* undo() {
 
 
 void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4){
-    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "Welcome!");
+    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4,"P", "Welcome!"); //P is hardcoded here, but could be passed as an arg to playgame(), doesn't really matter
     char usrInput[256];
     bool moveByColumn;
     bool endPile;
@@ -257,7 +252,6 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
             if (usrInput[0] == 'Q'){
                 freeBoardPiles(c1, c2, c3, c4, c5, c6, c7, f1, f2, f3, f4);
-
                 return;
             }
 
@@ -265,23 +259,25 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
                 memset(usrInput, '\0', 256); // Clears the input array
                 fflush(stdin); // Clears input buffer
                 //strcpy(usrInput, undo());
-                char *result = undo();
-                redo = true;
-                int resultLength  = strlen(result);
-                char resultArray[resultLength + 1];
+                if (moves != NULL){
+                    printf("You're being naughty naughty");
+                    char *result = undo();
+                    redo = true;
+                    int resultLength  = strlen(result);
+                    char resultArray[resultLength + 1];
+                    strcpy(resultArray, result);
+                    strcpy(usrInput, resultArray);
+                }
 
 
-                strcpy(resultArray, result);
-                strcpy(usrInput, resultArray);
-
-                if (usrInput[0] == '0') {
-                    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "Nothing to undo! (Or less than one move made) ");
+                if (usrInput[0] == '0') { //TODO: THIS DOESNT PRINT CORRECTLY. Hardcode or fix?
+                    printf("BANANANAN");
+                    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4,"U0", "Nothing to undo! (Or less than one move made) ");
                     continue;
                 }
 
                 //printf("\nHer7\n");
                 //printf("THE USER INPUT %s", usrInput);
-
             }
 
             if (!(usrInput[2] == ':' && usrInput[5] == '-' && usrInput[6] == '>' || usrInput[2] == '-' && usrInput[3] == '>')){
@@ -491,6 +487,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
             //saveMove(usrInput);
 
+
             //printf("´\nGucci gucci gucci gucci v1\n");
 
             Card* temp = *chosenDeck1;
@@ -517,15 +514,49 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
         }
 
         if (*f1 != NULL && *f2 != NULL && *f3 != NULL && *f4 != NULL) {
-            if ((*f1)->cardValue == 'K' && (*f2)->cardValue == 'K' && (*f3)->cardValue == 'K' &&
-                (*f4)->cardValue == 'K') {
-                strcpy(messages, "You have won the game!");
+
+            printf("\n\nAm actually at all heree am i not actually here?\n");
+
+            Card* tempf1 = *f1;
+            Card* tempf2 = *f2;
+            Card* tempf3 = *f3;
+            Card* tempf4 = *f4;
+
+            while (tempf1->next != NULL){
+                tempf1 = tempf1->next;
+            }
+            while (tempf2->next != NULL){
+                tempf2 = tempf2->next;
+            }
+            while (tempf3->next != NULL){
+                tempf3 = tempf3->next;
+            }
+            while (tempf4->next != NULL){
+                tempf4 = tempf4->next;
+            }
+
+
+            printf("\n\n%c%c\n", tempf1->cardValue, tempf1->cardType);
+            printf("\n\n%c%c\n", tempf2->cardValue, tempf2->cardType);
+            printf("\n\n%c%c\n", tempf3->cardValue, tempf3->cardType);
+            printf("\n\n%c%c\n", tempf4->cardValue, tempf4->cardType);
+
+            if ((tempf1)->cardValue == 'K' && (tempf2)->cardValue == 'K' && (tempf3)->cardValue == 'K' &&
+                (tempf4)->cardValue == 'K') {
+
+                printf("\n-------------------------------------------------\n");
+                printf("\n|            Congrats, you won!!!!              |\n");
+                printf("\n-------------------------------------------------\n");
+                printf("\n press any button to return to main menu: ");
+                getchar();
+                getchar();
+
                 return;
             }
         }
 
         //printf("\n\n%c%c\n\n", (*chosenDeck1)->cardValue, (*chosenDeck2)->cardValue);
-        printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, messages);
+        printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, usrInput,messages);
         if (redo == true){
             redo == false;
         } else {
@@ -535,6 +566,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
         //nextMove(usrInput, &moves);
 
     }
+
 
 
 }
@@ -663,8 +695,9 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
             getchar();
             while ((saveChar =(char) getchar()) != '\n' && i < sizeof(saveFileName) - 1){
                 saveFileName[i++] = saveChar;
-                printf("%usrInput", saveChar);
+                printf("%c", saveChar);
             }
+            printf("%s","\n");
             saveDeck(*firstCard,saveFileName); //Tjek lige om det der pointer noget fungerer
         }
             // "Play" - starts the game
@@ -775,138 +808,7 @@ bool loadMedia(SDL_Window* window, SDL_Surface** screenSurface) {
 
 int main(int argc, char* args[]){
 
-    /*
-    // returns zero on success else non-zero
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        printf("error initializing SDL: %s\n", SDL_GetError());
-    }
-    SDL_Window* win = SDL_CreateWindow("GAME", // creates a window
-                                       SDL_WINDOWPOS_CENTERED,
-                                       SDL_WINDOWPOS_CENTERED,
-                                       1000, 1000, 0);
-
-    // triggers the program that controls
-    // your graphics hardware and sets flags
-    Uint32 render_flags = SDL_RENDERER_ACCELERATED;
-
-    // creates a renderer to render our images
-    SDL_Renderer* rend = SDL_CreateRenderer(win, -1, render_flags);
-
-    // creates a surface to load an image into the main memory
-    SDL_Surface* surface;
-
-    // please provide a path for your image
-    surface = IMG_Load("path");
-
-    // loads image to our graphics hardware memory.
-    SDL_Texture* tex = SDL_CreateTextureFromSurface(rend, surface);
-
-    // clears main-memory
-    SDL_FreeSurface(surface);
-
-    // let us control our image position
-    // so that we can move it with our keyboard.
-    SDL_Rect dest;
-
-    // connects our texture with dest to control position
-    SDL_QueryTexture(tex, NULL, NULL, &dest.w, &dest.h);
-
-    // adjust height and width of our image box.
-    dest.w /= 6;
-    dest.h /= 6;
-
-    // sets initial x-position of object
-    dest.x = (1000 - dest.w) / 2;
-
-    // sets initial y-position of object
-    dest.y = (1000 - dest.h) / 2;
-
-    // controls animation loop
-    int close = 0;
-
-    // speed of box
-    int speed = 300;
-
-    // animation loop
-    while (!close) {
-        SDL_Event event;
-
-        // Events management
-        while (SDL_PollEvent(&event)) {
-            switch (event.type) {
-
-                case SDL_QUIT:
-                    // handling of close button
-                    close = 1;
-                    break;
-
-                case SDL_KEYDOWN:
-                    // keyboard API for key pressed
-                    switch (event.key.keysym.scancode) {
-                        case SDL_SCANCODE_W:
-                        case SDL_SCANCODE_UP:
-                            dest.y -= speed / 30;
-                            break;
-                        case SDL_SCANCODE_A:
-                        case SDL_SCANCODE_LEFT:
-                            dest.x -= speed / 30;
-                            break;
-                        case SDL_SCANCODE_S:
-                        case SDL_SCANCODE_DOWN:
-                            dest.y += speed / 30;
-                            break;
-                        case SDL_SCANCODE_D:
-                        case SDL_SCANCODE_RIGHT:
-                            dest.x += speed / 30;
-                            break;
-                        default:
-                            break;
-                    }
-            }
-        }
-
-        // right boundary
-        if (dest.x + dest.w > 1000)
-            dest.x = 1000 - dest.w;
-
-        // left boundary
-        if (dest.x < 0)
-            dest.x = 0;
-
-        // bottom boundary
-        if (dest.y + dest.h > 1000)
-            dest.y = 1000 - dest.h;
-
-        // upper boundary
-        if (dest.y < 0)
-            dest.y = 0;
-
-        // clears the screen
-        SDL_RenderClear(rend);
-        SDL_RenderCopy(rend, tex, NULL, &dest);
-
-        // triggers the double buffers
-        // for multiple rendering
-        SDL_RenderPresent(rend);
-
-        // calculates to 60 fps
-        SDL_Delay(1000 / 60);
-    }
-
-    // destroy texture
-    SDL_DestroyTexture(tex);
-
-    // destroy renderer
-    SDL_DestroyRenderer(rend);
-
-    // destroy window
-    SDL_DestroyWindow(win);
-
-    // close SDL
-    SDL_Quit();
-     */
-
-
+/*
     //The window we'll be rendering to
     SDL_Window* window = NULL;
 
@@ -933,8 +835,10 @@ int main(int argc, char* args[]){
         }
     }
 
+*/
 
- /* Essentially we are creating an object of type Card and do stuff with it
+    /*
+ * Essentially we are creating an object of type Card and do stuff with it
  */
     int j = 0;
     char chars = '2';
