@@ -53,6 +53,7 @@ void showCards(Card* firstCard){
         currentCard = currentCard->next;
         counter++;
     }
+    printf("\n");
 }
 
 /*

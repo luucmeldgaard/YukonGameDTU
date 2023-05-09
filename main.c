@@ -595,20 +595,36 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
             showCards(*firstCard);
         }
             // splitshuffle
-        else if ((strcmp(input,"SI")) == 0){ //strcmp returns 0 if theyre the same.
+        else if ((strcmp(input, "SI")) == 0) {
             printf("Please enter a number between 0 and 52. Leave empty or enter any letter to pick a random number: ");
+            char consumeNewLine;
+            while ((consumeNewLine = getchar()) != '\n' && consumeNewLine != EOF) {}
             signed int chosenCard = 0;
-
             while (true) {
-                scanf("%3d", &chosenCard); // idgaf about this one... It can't overflow. it's all good.
-                getchar();
-                if (chosenCard >= 0 && chosenCard <= 52){
+                char tempUsrInput[5];
+                fgets(tempUsrInput, sizeof(tempUsrInput), stdin);
+
+                // Check if there are extra characters in the input stream
+                if (strchr(tempUsrInput, '\n') == NULL) {
+                    // Clear input buffer
+                    int c;
+                    while ((c = getchar()) != '\n' && c != EOF) {}
+                }
+
+                int result = sscanf(tempUsrInput, "%3d", &chosenCard);
+
+                if (result == 1 && chosenCard >= 0 && chosenCard <= 52) {
                     break;
-                } else {
+                } else if (tempUsrInput[0] == '\n'){
+                    break;
+                }
+                else {
                     printf("Failure, please only numbers between 0 and 52: ");
                     continue;
                 }
             }
+
+
 
             printf("%d", chosenCard);
 
