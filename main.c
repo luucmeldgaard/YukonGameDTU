@@ -661,8 +661,9 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
             getchar();
             while ((saveChar =(char) getchar()) != '\n' && i < sizeof(saveFileName) - 1){
                 saveFileName[i++] = saveChar;
-                printf("%usrInput", saveChar);
+                printf("%c", saveChar);
             }
+            printf("%s","\n");
             saveDeck(*firstCard,saveFileName); //Tjek lige om det der pointer noget fungerer
         }
             // "Play" - starts the game
@@ -799,6 +800,7 @@ int main(int argc, char* args[]){
             }
         }
     }
+
 
 
     /*
