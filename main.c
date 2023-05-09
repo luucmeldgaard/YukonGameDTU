@@ -646,6 +646,7 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
                 saveFileName[i++] = saveChar;
                 printf("%c", saveChar);
             }
+            saveFileName[i++] = '\0';
             printf("%s","\n");
             saveDeck(*firstCard,saveFileName); //Tjek lige om det der pointer noget fungerer
         }
