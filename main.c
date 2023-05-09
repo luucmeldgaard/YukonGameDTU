@@ -278,7 +278,6 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
                 //printf("\nHer7\n");
                 //printf("THE USER INPUT %s", usrInput);
-
             }
 
             if (!(usrInput[2] == ':' && usrInput[5] == '-' && usrInput[6] == '>' || usrInput[2] == '-' && usrInput[3] == '>')){
