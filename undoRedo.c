@@ -5,11 +5,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+////////////////////////////////////////////////////////////////////////
+/////THE FOLLOWING CODE IS WIP AND NOT FUNCTIONAL AS OF 09/05/2023//////
+////////////////////////////////////////////////////////////////////////
 
 int movesUndone = 0;
 char* fileName = "logs.txt";
 char* fileName2 = "reversedLogs.txt";
 
+
+//These are yet to be implemented
 void resetMovesUndoneCounter(){
     movesUndone = 0;
 }
@@ -25,12 +30,6 @@ char *saveMove(char* move){
     fclose(file);
     return "true";
 }
-
-
-
-
-// bad attempts...
-
 
 void writeReversedData(FILE *file, Card **card_list) {
     // Count the number of cards in the list
@@ -96,10 +95,9 @@ char *saveCurrentGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Car
     return "Success!";
 }
 
-char *loadGame(){
 
-}
-
+//Yet to be implemented at all
+char *loadGame(){}
 
 char *undoMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card** c7,Card** f1,Card** f2,Card** f3,Card** f4){
     char buffer;
@@ -261,7 +259,6 @@ char *undoMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card
     return "Success!";
 
 }
-
 
 char *redoMoves(Card** c1,Card** c2,Card** c3,Card** c4,Card** c5,Card** c6,Card** c7,Card** f1,Card** f2,Card** f3,Card** f4){
     char buffer;

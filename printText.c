@@ -39,8 +39,6 @@ void showCards(Card* firstCard){
             printf("%c%c\t", currentCard->cardValue, (char) 4);
         }
 
-
-        //printf("%c%c\t", currentCard->cardValue, currentCard->cardType);
         // At the end of the every 2. line F# is added
         if (counter == 6 ){
             printf("\t[]\tF1");
@@ -79,7 +77,6 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
             if (c1->flipped == true){
                 printf("[]\t");
             } else {
-                //printf("%c%c\t", c1->cardValue, c1->cardType == 'C' ? (char) 5 : c1->cardType == 'S' ? (char) 6 : c1->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\t", c1->cardValue, c1->cardType);
             }
             c1 = c1->next;
@@ -90,7 +87,6 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
             if (c2->flipped == true){
                 printf("[]\t");
             } else {
-                //printf("%c%c\t", c2->cardValue, c2->cardType == 'C' ? (char) 5 : c2->cardType == 'S' ? (char) 6 : c2->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\t", c2->cardValue, c2->cardType);
             }
             c2 = c2->next;
@@ -102,7 +98,6 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
                 printf("[]\t");
             } else {
                 printf("%c%c\t", c3->cardValue, c3->cardType);
-                //printf("%c%c\t", c3->cardValue, c3->cardType == 'C' ? (char) 5 : c3->cardType == 'S' ? (char) 6 : c3->cardType == 'H' ? (char) 3 : (char) 4);
             }
             c3 = c3->next;
         }else {
@@ -112,7 +107,6 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
             if (c4->flipped == true){
                 printf("[]\t");
             } else {
-                //printf("%c%c\t", c4->cardValue, c4->cardType == 'C' ? (char) 5 : c4->cardType == 'S' ? (char) 6 : c4->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\t", c4->cardValue, c4->cardType);
             }
             c4 = c4->next;
@@ -123,7 +117,6 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
             if (c5->flipped == true){
                 printf("[]\t");
             } else {
-                //printf("%c%c\t", c5->cardValue, c5->cardType == 'C' ? (char) 5 : c5->cardType == 'S' ? (char) 6 : c5->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\t", c5->cardValue, c5->cardType);
             }
             c5 = c5->next;
@@ -134,7 +127,6 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
             if (c6->flipped == true){
                 printf("[]\t");
             } else {
-                //printf("%c%c\t", c6->cardValue, c6->cardType == 'C' ? (char) 5 : c6->cardType == 'S' ? (char) 6 : c6->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\t", c6->cardValue, c6->cardType);
             }
             c6 = c6->next;
@@ -145,7 +137,6 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
             if (c7->flipped == true){
                 printf("[]\t");
             } else {
-                //printf("%c%c\t", c7->cardValue, c7->cardType == 'C' ? (char) 5 : c7->cardType == 'S' ? (char) 6 : c7->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\t", c7->cardValue, c7->cardType);
             }
             c7 = c7->next;
@@ -160,7 +151,6 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
                 while (f1->next != NULL){
                     f1 = f1->next;
                 }
-                //printf("%c%c\t", f1->cardValue, f1->cardType == 'C' ? (char) 5 : f1->cardType == 'S' ? (char) 6 : f1->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\tF1", f1->cardValue, f1->cardType);
             }
         } else if (lineCounter == 2){
@@ -170,7 +160,6 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
                 while (f2->next != NULL){
                     f2 = f2->next;
                 }
-                //printf("%c%c\t", f2->cardValue, f2->cardType == 'C' ? (char) 5 : f2->cardType == 'S' ? (char) 6 : f2->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\tF2", f2->cardValue, f2->cardType);
             }
         } else if (lineCounter == 4){
@@ -180,7 +169,6 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
                 while (f3->next != NULL){
                     f3 = f3->next;
                 }
-                //printf("%c%c\t", f3->cardValue, f3->cardType == 'C' ? (char) 5 : f3->cardType == 'S' ? (char) 6 : f3->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\tF3", f3->cardValue, f3->cardType);
             }
         } else if (lineCounter == 6){
@@ -190,27 +178,19 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
                 while (f4->next != NULL){
                     f4 = f4->next;
                 }
-                //printf("%c%c\t", f4->cardValue, f4->cardType == 'C' ? (char) 5 : f4->cardType == 'S' ? (char) 6 : f4->cardType == 'H' ? (char) 3 : (char) 4);
                 printf("%c%c\tF4", f4->cardValue, f4->cardType);
             }
-
-
         }
 
-        //printf("\n%d\n", lineCounter);
         printf("\n");
         lineCounter += 1;
     }
-
-    //printf("\nDone with counting lines at %d :\n", lineCounter);
-
 
 
     if (lineCounter == 0) {
         while (f1->next != NULL){
             f1 = f1->next;
         }
-
         printf("\t\t\t\t\t\t\t%c%c\tF1\n", f1->cardValue, f1->cardType);
         printf("\n");
         printf("\t\t\t\t\t\t\t%c%c\tF2\n", f2->cardValue, f2->cardType);
