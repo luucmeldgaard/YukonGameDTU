@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+////////////////////////////////////////////////////////////////////////
+/////THE FOLLOWING CODE IS WIP AND NOT FUNCTIONAL AS OF 09/05/2023//////
+////////////////////////////////////////////////////////////////////////
 
 int movesUndone = 0;
 char* fileName = "logs.txt";
@@ -28,10 +31,6 @@ char *saveMove(char* move){
     return "true";
 }
 
-
-///////////////////////////////////////////////////////
-/////THE FOLLOWING CODE IS WIP AND NOT FUNCTIONAL//////
-///////////////////////////////////////////////////////
 void writeReversedData(FILE *file, Card **card_list) {
     // Count the number of cards in the list
     Card *temp = *card_list;
