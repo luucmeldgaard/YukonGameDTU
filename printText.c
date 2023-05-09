@@ -55,13 +55,12 @@ void showCards(Card* firstCard){
         currentCard = currentCard->next;
         counter++;
     }
-    printf("\nMessage:\nInput:");
 }
 
 /*
  * Prints the current board. Not much to be explained, just a bunch of if statements printing stuff.
  */
-void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c6, Card* c7, Card* f1, Card* f2, Card* f3, Card* f4, char* message){
+void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c6, Card* c7, Card* f1, Card* f2, Card* f3, Card* f4, char* userInput, char* message){
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     printf("\nC1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
     int lineCounter = 0;
@@ -263,7 +262,18 @@ void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c
         printf("\t\t\t\t\t\t\t%c%c\tF4\n", f4->cardValue, f4->cardType);
     }
 
-    printf("\n");
+    //Prints the userinput
+    printf("%s", "Last command: ");
+    int i = 0;
+    while(true){
+        printf("%c",userInput[i]);
+        i = i + 1;
+        if(userInput[i] == '\0'){
+            break;
+        }
+    }
+    printf("%c",'\n');
+
     printf("Status message: %s\n", message);
     printf("Input: ");
 }

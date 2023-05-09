@@ -146,6 +146,10 @@ char* undo() {
 
     currentGame* currentMove = moves;
 
+    if (currentMove == NULL){
+        printf("This command is especially naughty"); //TODO: Fix this so it doesnt crash when undoing on first move
+        return NULL;
+    }
 
     while (currentMove->next != NULL) {
         currentMove = currentMove->next;
@@ -219,8 +223,6 @@ char* undo() {
 
     }
      */
-
-
     return result;
 
 }
@@ -228,7 +230,7 @@ char* undo() {
 
 
 void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Card** c6, Card** c7, Card** f1, Card** f2, Card** f3, Card** f4){
-    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "Welcome!");
+    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4,"P", "Welcome!"); //P is hardcoded here, but could be passed as an arg to playgame(), doesn't really matter
     char usrInput[256];
     bool moveByColumn;
     bool endPile;
@@ -255,7 +257,6 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
             if (usrInput[0] == 'Q'){
                 freeBoardPiles(c1, c2, c3, c4, c5, c6, c7, f1, f2, f3, f4);
-
                 return;
             }
 
@@ -272,8 +273,9 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
                 strcpy(resultArray, result);
                 strcpy(usrInput, resultArray);
 
-                if (usrInput[0] == '0') {
-                    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, "Nothing to undo! (Or less than one move made) ");
+                if (usrInput[0] == '0') { //TODO: THIS DOESNT PRINT CORRECTLY. Hardcode or fix?
+                    printf("BANANANAN");
+                    printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4,"U0", "Nothing to undo! (Or less than one move made) ");
                     continue;
                 }
 
@@ -489,6 +491,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
 
             //saveMove(usrInput);
 
+
             //printf("´\nGucci gucci gucci gucci v1\n");
 
             Card* temp = *chosenDeck1;
@@ -523,7 +526,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
         }
 
         //printf("\n\n%c%c\n\n", (*chosenDeck1)->cardValue, (*chosenDeck2)->cardValue);
-        printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, messages);
+        printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4, usrInput,messages);
         if (redo == true){
             redo == false;
         } else {
@@ -533,6 +536,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
         //nextMove(usrInput, &moves);
 
     }
+
 
 
 }
@@ -661,8 +665,9 @@ void startMenu(Card** firstCard, Card** lastCard, char* textBuf){
             getchar();
             while ((saveChar =(char) getchar()) != '\n' && i < sizeof(saveFileName) - 1){
                 saveFileName[i++] = saveChar;
-                printf("%usrInput", saveChar);
+                printf("%c", saveChar);
             }
+            printf("%s","\n");
             saveDeck(*firstCard,saveFileName); //Tjek lige om det der pointer noget fungerer
         }
             // "Play" - starts the game
@@ -754,7 +759,7 @@ bool loadMedia(SDL_Window* window, SDL_Surface** screenSurface) {
     SDL_Surface* image = NULL;
 
     // Load image
-    image = SDL_LoadBMP( "C:\\Users\\LuucM\\CLionProjects\\YukonGameDTU\\background.bmp" );
+    image = SDL_LoadBMP( "background.bmp" );
     if( image == NULL )
     {
         printf( "Unable to load image %s! SDL Error: %s\n", "background.bmp", SDL_GetError() );
@@ -773,7 +778,7 @@ bool loadMedia(SDL_Window* window, SDL_Surface** screenSurface) {
 
 int main(int argc, char* args[]){
 
-/*
+
     //The window we'll be rendering to
     SDL_Window* window = NULL;
 
@@ -784,7 +789,7 @@ int main(int argc, char* args[]){
     init(window, &screenSurface);
 
     // Load and apply image to the window surface
-    loadMedia(window, &screenSurface);
+    //loadMedia(window, &screenSurface);
 
     // Update the window surface
     SDL_UpdateWindowSurface(window);
@@ -799,7 +804,8 @@ int main(int argc, char* args[]){
             }
         }
     }
-*/
+
+
 
     /*
  * Essentially we are creating an object of type Card and do stuff with it

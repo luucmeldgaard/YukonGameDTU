@@ -12,7 +12,7 @@
 #include "card.h"
 
 void showCards(Card* firstCard);
-void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c6, Card* c7, Card* f1, Card* f2, Card* f3, Card* f4, char* message);
+void printCurrentBoard(Card* c1, Card* c2, Card* c3, Card* c4, Card* c5, Card* c6, Card* c7, Card* f1, Card* f2, Card* f3, Card* f4, char* usrInput, char* message);
 
 
 #endif //YUKONGAMEDTU_PRINTTEXT_H
