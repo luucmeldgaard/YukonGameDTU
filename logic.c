@@ -318,7 +318,6 @@ void shuffle(Card** firstCard, Card** lastCard){
  */
 void placeCard(Card** newPile, Card** oldPile) {
     Card *cardToMove = *oldPile;
-    Card *memoryToFree = *oldPile;
 
 
     // Remove the card from the old pile
@@ -342,52 +341,4 @@ void placeCard(Card** newPile, Card** oldPile) {
         temp->next = cardToMove;
         cardToMove->previous = temp;
     }
-
-
-// Old code - not tested
-/*
-    Card *newPile1 = *newPile;
-    Card *newPile2;
-    Card *oldPile1 = oldPile;
-    Card *oldPile2;
-        // No cards in pile
-    if (*newPile == NULL){
-        newPile1 = oldPile1; // useless
-        oldPile1 = oldPile1->next;
-        oldPile1->previous = NULL;
-        newPile1->next = NULL;
-        newPile1->previous = NULL;
-        // First card in the pile
-    } else if ((*newPile)->previous == NULL) {
-        oldPile2 = oldPile1->next;
-        newPile1->previous = oldPile1;
-        newPile2 = newPile1;
-        newPile1 = newPile1->previous;
-        newPile1->previous = NULL;
-        newPile1->next = newPile2;
-        oldPile2-> previous = NULL;
-    } else if ((*newPile)->next == NULL){
-        oldPile2 = oldPile1->next;
-        newPile1->next = oldPile1;
-        newPile2 = newPile1->next;
-        oldPile2->previous = NULL;
-        newPile2->next = NULL;
-        newPile2->previous = newPile1;
-    } else {
-        oldPile2 = oldPile1->next;
-        newPile2 = newPile1->next;
-        newPile1->next = oldPile1;
-
-        oldPile1 = oldPile1->previous;
-        oldPile1->next = oldPile2;
-        oldPile2->previous = oldPile1;
-
-        newPile1 = newPile1->next;
-        newPile1->next = newPile2;
-        newPile2->previous = newPile1;
-
-
-
-    }
-    */
 }

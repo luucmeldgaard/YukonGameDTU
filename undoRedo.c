@@ -10,6 +10,8 @@ int movesUndone = 0;
 char* fileName = "logs.txt";
 char* fileName2 = "reversedLogs.txt";
 
+
+//These are yet to be implemented
 void resetMovesUndoneCounter(){
     movesUndone = 0;
 }
@@ -96,8 +98,9 @@ char *saveCurrentGame(Card** c1, Card** c2, Card** c3, Card** c4, Card** c5, Car
     return "Success!";
 }
 
-char *loadGame(){
 
+//Yet to be implemented
+char *loadGame(){
 }
 
 
