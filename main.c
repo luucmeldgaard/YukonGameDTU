@@ -754,7 +754,7 @@ bool loadMedia(SDL_Window* window, SDL_Surface** screenSurface) {
     SDL_Surface* image = NULL;
 
     // Load image
-    image = SDL_LoadBMP( "C:\\Users\\LuucM\\CLionProjects\\YukonGameDTU\\background.bmp" );
+    image = SDL_LoadBMP( "background.bmp" );
     if( image == NULL )
     {
         printf( "Unable to load image %s! SDL Error: %s\n", "background.bmp", SDL_GetError() );
