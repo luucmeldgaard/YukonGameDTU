@@ -803,7 +803,7 @@ bool loadMedia(SDL_Window* window, SDL_Surface** screenSurface) {
 
 int main(int argc, char* args[]){
 
-/*
+
     //The window we'll be rendering to
     SDL_Window* window = NULL;
 
@@ -830,7 +830,6 @@ int main(int argc, char* args[]){
         }
     }
 
-*/
 
     /*
  * Essentially we are creating an object of type Card and do stuff with it
