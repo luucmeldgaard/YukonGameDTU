@@ -146,6 +146,9 @@ char* undo() {
 
     currentGame* currentMove = moves;
 
+    if (currentMove == NULL){
+        printf("Fucking up here");
+    }
 
     while (currentMove->next != NULL) {
         currentMove = currentMove->next;
@@ -219,8 +222,6 @@ char* undo() {
 
     }
      */
-
-
     return result;
 
 }
@@ -272,6 +273,7 @@ void playGame(Card** firstCard, Card** lastCard, Card** c1, Card** c2, Card** c3
                 strcpy(usrInput, resultArray);
 
                 if (usrInput[0] == '0') { //TODO: THIS DOESNT PRINT CORRECTLY. Hardcode or fix?
+                    printf("BANANANAN");
                     printCurrentBoard(*c1, *c2, *c3, *c4, *c5, *c6, *c7, *f1, *f2, *f3, *f4,"U0", "Nothing to undo! (Or less than one move made) ");
                     continue;
                 }
