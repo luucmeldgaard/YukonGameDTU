@@ -55,7 +55,6 @@ void showCards(Card* firstCard){
         currentCard = currentCard->next;
         counter++;
     }
-    printf("\nMessage:\nInput:");
 }
 
 /*
